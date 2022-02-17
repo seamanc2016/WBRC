@@ -29,19 +29,35 @@
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link" href="html/eventActivitiesPage.html">Events & Activities</a></li>
                         <li class="nav-item"><a class="nav-link" href="html/visitorRegistrationpage.html">Visitor Registration</a></li>
-                        <li class="nav-item"><a class="nav-link" href="html/dashboardPage.html">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" onclick="loginCheck()">Dashboard</a></li>
                         <li class="nav-item"><a class="nav-link" href="html/aboutPage.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="html/loginPage.html">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">Store</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- Masthead-->
-        <header class="masthead">
+        <header class="masthead" id = "baseMasthead" style="display: none;">
             <div class="container">
                 <div class="masthead-subheading">Welcome To Our Community</div>
                 <div class="masthead-heading text-uppercase">Let's Get Started</div>
-                <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
+                <a class="btn btn-primary btn-xl text-uppercase" onclick="mastheadSwitch()">Sign in</a>
+            </div>
+        </header>
+        <!-- Masthead-lOGIN-->
+        <header class="masthead" id = "loginMasthead" style="display: none;">
+            <div class="container" id="test">
+                <div class="masthead-subheading">Firebase Login</div>
+                <input class="masthead-heading" type="email" placeholder="Email..." id="email" />
+                <input class="masthead-heading" type="password" placeholder="Password..." id="password" />
+                <p></p>
+                <a class="btn btn-primary btn-xl text-uppercase" onclick="login()">Login</a>
+            </div>
+        </header>
+        <!-- Masthead-PLACEHOLDER-->
+        <header class="masthead" id = "loginPlaceholder" style="display: none;">
+            <div class="container" id="test">
+                <a class="btn btn-primary btn-xl text-uppercase" href="html/dashboardPage.html">Dashboard</a>
             </div>
         </header>
         <!-- Services-->
@@ -407,10 +423,20 @@
                 </div>
             </div>
         </div>
+
+        <!--Firebase SDK-->
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+        <script src="js/scriptLogin.js"></script>
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="js/scriptsHome.js"></script>
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

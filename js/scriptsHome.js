@@ -52,3 +52,8 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
+
+function mastheadSwitch() {
+    document.getElementById("baseMasthead").style.display = "none";
+    document.getElementById("loginMasthead").style.display = "block";
+}
