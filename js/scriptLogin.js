@@ -21,7 +21,7 @@ auth.onAuthStateChanged(function(user) {
   
         document.getElementById("baseMasthead").style.display = "none";
         document.getElementById("loginMasthead").style.display = "none";
-        document.getElementById("loginPlaceholder").style.display = "block";
+        document.getElementById("placeholderMasthead").style.display = "block";
   
         var user = firebase.auth().currentUser;
   
@@ -36,7 +36,7 @@ auth.onAuthStateChanged(function(user) {
         // No user is signed in.
   
         document.getElementById("baseMasthead").style.display = "block";
-        document.getElementById("loginPlaceholder").style.display = "none";
+        document.getElementById("placeholderMasthead").style.display = "none";
         document.getElementById("loginMasthead").style.display = "none";
 
   
@@ -55,20 +55,20 @@ function register () {
               
     // Validate input fields
     if (validate_email(email) == false || validate_password(password) == false) {
-        alert('Email or Password is Incorrectly Formatted')
-        return
+        alert('Email or Password is Incorrectly Formatted');
+        return;
         // Don't continue running the code
     }
     if (validate_field(full_name) == false || validate_field(phone) == false || validate_field(age) == false) {
-        alert('One or More Extra Fields is Incorrectly Formatted!!')
-        return
+        alert('One or More Extra Fields is Incorrectly Formatted!!');
+        return;
     }
                
     // Declare user variable
-    var user = auth.currentUser
+    var user = auth.currentUser;
         
     // Add this user to Firebase Database
-    var database_ref = database.ref()
+    var database_ref = database.ref();
               
     // Create User data
     var user_data = {
@@ -81,30 +81,30 @@ function register () {
     }
               
     // Push to Firebase Database
-    database_ref.child('users/' + user.uid).set(user_data)
+    database_ref.child('users/' + user.uid).set(user_data);
               
     // Done
-    alert('User Created!!')
-    window.location.href = "html/dashboardPage.html"    
+    alert('User Created!!');
+    window.location.href = "html/dashboardPage.html";
 }
               
 // Set up our login function
 function login () {
     // Get all our input fields
-    email = document.getElementById('email').value
-    password = document.getElementById('password').value
+    email = document.getElementById('email').value;
+    password = document.getElementById('password').value;
               
     // Validate input fields
     if (validate_email(email) == false || validate_password(password) == false) {
-        alert('Email or Password is Outta Line!!')
-        return
+        alert('Email or Password is Outta Line!!');
+        return;
         // Don't continue running the code
     }
               
     auth.signInWithEmailAndPassword(email, password)
     .then(function() {
         // Declare user variable
-        var user = auth.currentUser
+        var user = auth.currentUser;
               
               
         // Done
@@ -112,7 +112,7 @@ function login () {
         dbRef.child("users").child(user.uid).get().then((snapshot) => {
             if (snapshot.exists()) {
                 // Add this user to Firebase Database
-                var database_ref = database.ref()
+                var database_ref = database.ref();
               
                 // Create User data
                 var user_data = {
@@ -120,11 +120,11 @@ function login () {
                 }
               
                 // Push to Firebase Database
-                database_ref.child('users/' + user.uid).update(user_data)
-                window.location.href = "html/dashboardPage.html"
+                database_ref.child('users/' + user.uid).update(user_data);
+                window.location.href = "html/dashboardPage.html";
             } else {
                 console.log("No data available");
-                window.location.href = "html/registerPage.html"
+                window.location.href = "html/registerPage.html";
             }
           }).catch((error) => {
                 console.error(error);
@@ -133,10 +133,10 @@ function login () {
     })
     .catch(function(error) {
         // Firebase will use this to alert of its errors
-        var error_code = error.code
-        var error_message = error.message
+        var error_code = error.code;
+        var error_message = error.message;
         
-        alert(error_message)
+        alert(error_message);
     })
 }
 
@@ -145,55 +145,55 @@ function logout(){
     window.location.href = "../index.html";
   }
               
-function loginCheck() {
+function loginCheck(url) {
     auth.onAuthStateChanged(function(user) {
         if (user) {
             // User is signed in
-            window.location.href = "html/dashboardPage.html"
+            window.location.href = url;
       
         } else {
             // No user is signed in.
       
             document.getElementById("baseMasthead").style.display = "block";
-            document.getElementById("loginPlaceholder").style.display = "none";
+            document.getElementById("placeholderMasthead").style.display = "none";
             document.getElementById("loginMasthead").style.display = "none";
-            alert("Must be signed in")
+            alert("Must be signed in");
     
       
         }
     });
-}           
+}
               
               
 // Validate Functions
 function validate_email(email) {
-    expression = /^[^@]+@\w+(\.\w+)+\w$/
+    expression = /^[^@]+@\w+(\.\w+)+\w$/;
     if (expression.test(email) == true) {
         // Email is good
-        return true
+        return true;
     } else {
         // Email is not good
-        return false
+        return false;
     }
 }
               
 function validate_password(password) {
     // Firebase only accepts lengths greater than 6
     if (password < 6) {
-        return false
+        return false;
     } else {
-        return true
+        return true;
     }
 }
               
 function validate_field(field) {
     if (field == null) {
-        return false
+        return false;
     }
               
     if (field.length <= 0) {
-        return false
+        return false;
     } else {
-        return true
+        return true;
     }
 }
