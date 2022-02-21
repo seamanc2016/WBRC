@@ -51,21 +51,49 @@ function register () {
               
     // Validate input fields
     if (validate_email(email) == false || validate_password(password) == false) {
-        alert('Email or Password is Incorrectly Formatted')
-        return
+        alert('Email or Password is Incorrectly Formatted');
+        return;
         // Don't continue running the code
     }
     if (validate_field(full_name) == false || validate_field(phone) == false || validate_field(age) == false) {
-        alert('One or More Extra Fields is Incorrectly Formatted!!')
-        return
+        alert('One or More Extra Fields is Incorrectly Formatted!!');
+        return;
     }
-               
-    // Declare user variable
-    var user = auth.currentUser
+
+    //Admin permissions
+    var admin_perms;
+    checkbox = document.getElementById('admin_toggle');
+    if (checkbox.checked == true) {
+        adminInput = document.getElementById("admin_key").value;
+        const databaseRef = firebase.database().ref();
+        databaseRef.child("adminkeys").child("key1").get()
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                if (String(snapshot.val()) == adminInput){
+                    admin_perms = true;
+                    console.log("Correct admin key");
+                } else {
+                    admin_perms = false;
+                    console.log("Incorrect admin key");
+                }
+            } else {
+                console.log("No data available");
+            }
+
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+        console.log(admin_perms)
+    } 
         
+    // Declare user variable
+    var user = auth.currentUser;
+    
     // Add this user to Firebase Database
-    var database_ref = database.ref()
-              
+    var database_ref = database.ref();
+    
     // Create User data
     var user_data = {
         email : email,
@@ -73,106 +101,79 @@ function register () {
         phone : phone,
         age : age,
         last_login : Date.now(),
-        admin_perms : false
+        admin_perms : admin_perms
     }
               
     // Push to Firebase Database
-    database_ref.child('users/' + user.uid).set(user_data)
+    database_ref.child('users/' + user.uid).set(user_data);
               
     // Done
-    alert('User Created!!')
-    window.location.href = "dashboardPage.html"    
-}
-              
-// Set up our login function
-function login () {
-    // Get all our input fields
-    email = document.getElementById('email').value
-    password = document.getElementById('password').value
-              
-    // Validate input fields
-    if (validate_email(email) == false || validate_password(password) == false) {
-        alert('Email or Password is Outta Line!!')
-        return
-        // Don't continue running the code
-    }
-              
-    auth.signInWithEmailAndPassword(email, password)
-    .then(function() {
-        // Declare user variable
-        var user = auth.currentUser
-              
-              
-        // Done
-        alert('User Logged In!!')
-        dbRef.child("users").child(user.uid).get().then((snapshot) => {
-            if (snapshot.exists()) {
-                // Add this user to Firebase Database
-                var database_ref = database.ref()
-              
-                // Create User data
-                var user_data = {
-                last_login : Date.now()
-                }
-              
-                // Push to Firebase Database
-                database_ref.child('users/' + user.uid).update(user_data)
-                window.location.href = "html/dashboardPage.html"
-            } else {
-                console.log("No data available");
-                window.location.href = "html/registerPage.html"
-            }
-          }).catch((error) => {
-                console.error(error);
-          });
-              
-    })
-    .catch(function(error) {
-        // Firebase will use this to alert of its errors
-        var error_code = error.code
-        var error_message = error.message
-        
-        alert(error_message)
-    })
+    alert('User Created!!');
+    window.location.href = "dashboardPage.html";
 }
 
-function logout(){
-    firebase.auth().signOut();
-    window.location.href = "../index.html";
-  }
-              
-              
+function adminToggle(checkbox) {
+    var adminKey = document.getElementById("admin_key");
+    adminKey.style.display = checkbox.checked ? "inline-block" : "none";
+}
+
+function checkAdminKey (value) {
+
+    var bool
+    const databaseRef = firebase.database().ref();
+    databaseRef.child("adminkeys").child("key1").get()
+    .then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log(snapshot.val());
+            if (String(snapshot.val()) == value){
+                bool = true;
+                console.log("Correct admin key");
+            } else {
+                bool = false;
+                console.log("Incorrect admin key");
+            }
+        } else {
+            console.log("No data available");
+        }
+
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+    console.log(bool)
+    return bool;
+}
               
               
 // Validate Functions
 function validate_email(email) {
-    expression = /^[^@]+@\w+(\.\w+)+\w$/
+    expression = /^[^@]+@\w+(\.\w+)+\w$/;
     if (expression.test(email) == true) {
         // Email is good
-        return true
+        return true;
     } else {
         // Email is not good
-        return false
+        return false;
     }
 }
               
 function validate_password(password) {
     // Firebase only accepts lengths greater than 6
     if (password < 6) {
-        return false
+        return false;
     } else {
-        return true
+        return true;
     }
 }
               
 function validate_field(field) {
     if (field == null) {
-        return false
+        return false;
     }
               
     if (field.length <= 0) {
-        return false
+        return false;
     } else {
-        return true
+        return true;
     }
 }

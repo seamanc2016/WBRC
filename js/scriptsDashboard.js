@@ -24,3 +24,64 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+var firebaseConfig = {
+    apiKey: "AIzaSyDLmZz2jMiSqzt_cqsCafsakgucfeaHbx8",
+    authDomain: "colchal-web.firebaseapp.com",
+    databaseURL: "https://colchal-web-default-rtdb.firebaseio.com",
+    projectId: "colchal-web",
+    storageBucket: "colchal-web.appspot.com",
+    messagingSenderId: "298376904957",
+    appId: "1:298376904957:web:e0902c3d9effbeb7fd3e94",
+    measurementId: "G-5M31TBLFHM"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+// Initialize variables
+const auth = firebase.auth();
+const database = firebase.database();
+const dbRef = firebase.database().ref();
+
+function logout(){
+    firebase.auth().signOut();
+    window.location.href = "../index.html";
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            adminCheck();
+        } else {
+          // User is signed out
+          // ...
+          window.location.href = "../index.html";
+        }
+    });
+});
+
+function adminCheck() {
+    var user = auth.currentUser;
+    console.log(auth.currentUser.uid)
+    const databaseRef = firebase.database().ref();
+    databaseRef.child("users").child(user.uid).child("admin_perms").get()
+    .then((snapshot) => {
+        if (snapshot.exists()) {
+            if(snapshot.val() == true) {
+                document.getElementById("adminTest").style.display = "inline-block";
+                document.getElementById("residentTest").style.display = "none";
+            } else {
+                document.getElementById("adminTest").style.display = "none";
+                document.getElementById("residentTest").style.display = "inline-block";
+            }
+
+        } else {
+            console.log("No data available");
+        }
+
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+
+}
+           
