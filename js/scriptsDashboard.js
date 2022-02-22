@@ -7,6 +7,7 @@
 // Scripts
 // 
 
+//Bootstrap script for the sidebar
 window.addEventListener('DOMContentLoaded', event => {
 
     // Toggle the side navigation
@@ -25,6 +26,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
+//initialize Firebase SDK and API credentials
 var firebaseConfig = {
     apiKey: "AIzaSyDLmZz2jMiSqzt_cqsCafsakgucfeaHbx8",
     authDomain: "colchal-web.firebaseapp.com",
@@ -42,11 +44,13 @@ const auth = firebase.auth();
 const database = firebase.database();
 const dbRef = firebase.database().ref();
 
+//Firebase standard logout function modified to route to the home/loginpage
 function logout(){
     firebase.auth().signOut();
     window.location.href = "../index.html";
 }
 
+//function to setup auth parameters and functions upon page load
 document.addEventListener("DOMContentLoaded", function() {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -59,17 +63,22 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+//function custom to the dashboard (for now) that shows how revealing and hiding admin features can work
 function adminCheck() {
+    //initialize user auth
     var user = auth.currentUser;
-    console.log(auth.currentUser.uid)
+    //connectiong to database
     const databaseRef = firebase.database().ref();
+    //function to get the admin_perms value from a certain user(identified by uid)
     databaseRef.child("users").child(user.uid).child("admin_perms").get()
     .then((snapshot) => {
         if (snapshot.exists()) {
             if(snapshot.val() == true) {
+                //If the user does have admin perms it shows the admin div and hides the resident div
                 document.getElementById("adminTest").style.display = "inline-block";
                 document.getElementById("residentTest").style.display = "none";
             } else {
+                //If the user does not have admin perms it hides the admin div and shows the resident div
                 document.getElementById("adminTest").style.display = "none";
                 document.getElementById("residentTest").style.display = "inline-block";
             }

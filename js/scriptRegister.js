@@ -1,3 +1,4 @@
+//initialize Firebase SDK and API credentials
 var firebaseConfig = {
     apiKey: "AIzaSyDLmZz2jMiSqzt_cqsCafsakgucfeaHbx8",
     authDomain: "colchal-web.firebaseapp.com",
@@ -15,27 +16,15 @@ const auth = firebase.auth();
 const database = firebase.database();
 const dbRef = firebase.database().ref();
 
+//function to setup auth parameters and functions upon page load
 auth.onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.
-  
-        document.getElementById("test").style.display = "none";
-  
         var user = firebase.auth().currentUser;
-  
-        if(user != null){
-  
-            var email_id = user.email;
-            document.getElementById("user_para").innerHTML = "Welcome User : " + email_id;
-  
-        }
   
     } else {
         // No user is signed in.
-  
-        document.getElementById("user_div").style.display = "none";
-        document.getElementById("login_div").style.display = "block";
-  
+        window.location.href = "../index.html";
     }
 });      
 
@@ -47,6 +36,7 @@ function register () {
     full_name = document.getElementById('full_name').value;
     phone = document.getElementById('phone').value;
     age = document.getElementById('age').value;
+    admin_key_field = document.getElementById("admin_key").value;
 
               
     // Validate input fields
@@ -61,33 +51,8 @@ function register () {
     }
 
     //Admin permissions
-    var admin_perms;
-    checkbox = document.getElementById('admin_toggle');
-    if (checkbox.checked == true) {
-        adminInput = document.getElementById("admin_key").value;
-        const databaseRef = firebase.database().ref();
-        databaseRef.child("adminkeys").child("key1").get()
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                console.log(snapshot.val());
-                if (String(snapshot.val()) == adminInput){
-                    admin_perms = true;
-                    console.log("Correct admin key");
-                } else {
-                    admin_perms = false;
-                    console.log("Incorrect admin key");
-                }
-            } else {
-                console.log("No data available");
-            }
+    adminKeyCheck(admin_key_field);
 
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-        console.log(admin_perms)
-    } 
-        
     // Declare user variable
     var user = auth.currentUser;
     
@@ -101,49 +66,68 @@ function register () {
         phone : phone,
         age : age,
         last_login : Date.now(),
-        admin_perms : admin_perms
     }
               
-    // Push to Firebase Database
-    database_ref.child('users/' + user.uid).set(user_data);
+    // Push to user_data to update the Firebase Realtimne Database
+    database_ref.child('users/' + user.uid).update(user_data);
               
     // Done
     alert('User Created!!');
     window.location.href = "dashboardPage.html";
 }
 
+//Function to hide/show the admin key input field depending on thew status of the admin checkbox
 function adminToggle(checkbox) {
     var adminKey = document.getElementById("admin_key");
     adminKey.style.display = checkbox.checked ? "inline-block" : "none";
 }
 
-function checkAdminKey (value) {
+function adminKeyCheck(adminKeyActual) {
+    checkbox = document.getElementById('admin_toggle');
+    if (checkbox.checked == true) {
+        //if admin checkbox is checked
 
-    var bool
-    const databaseRef = firebase.database().ref();
-    databaseRef.child("adminkeys").child("key1").get()
-    .then((snapshot) => {
-        if (snapshot.exists()) {
-            console.log(snapshot.val());
-            if (String(snapshot.val()) == value){
-                bool = true;
-                console.log("Correct admin key");
+        //Initializing user and databse connection
+        var user = auth.currentUser;
+        const databaseRef = firebase.database().ref();
+        //getting the stored admin key then performing subsequent tasks
+        databaseRef.child("adminkeys").child("key1").get()
+        .then((snapshot) => {
+            var bool;
+            if (snapshot.exists()) {
+                //if there is a admin key available
+                if (String(snapshot.val()) == adminKeyActual){
+                    //if the user inputted admin key matches the admin key stored in the database
+                    bool = true;
+                    var user_data = {
+                        admin_perms : bool
+                    }
+                    //updates user database snapshot with the admin permission true
+                    databaseRef.child('users/' + user.uid).update(user_data);
+                } else {
+                    //if the user inputted admin key doesn't match the admin key stored in the database
+                    console.log("Incorrect admin key");
+                    bool = false;
+                    var user_data = {
+                        admin_perms : bool
+                    }
+                    //updates user database snapshot with the admin permission false
+                    databaseRef.child('users/' + user.uid).set(user_data);
+                }
             } else {
-                bool = false;
-                console.log("Incorrect admin key");
+                //if there is no admin key (which there always should be)
+                console.log("No data available");
             }
-        } else {
-            console.log("No data available");
-        }
-
-    })
-    .catch((error) => {
-        console.error(error);
-    });
-    console.log(bool)
-    return bool;
+        }).catch((error) => {
+            //if the site can't reach the database
+            console.error(error);
+        });
+    } else {
+        //if admin checkbox is not checked
+        return false;
+    }
+    
 }
-              
               
 // Validate Functions
 function validate_email(email) {
