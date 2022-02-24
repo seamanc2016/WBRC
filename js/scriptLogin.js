@@ -28,17 +28,7 @@ auth.onAuthStateChanged(function(user) {
                 document.getElementById("loginMasthead").style.display = "none";
                 document.getElementById("placeholderMasthead").style.display = "block";
                 document.getElementById("placeholderRegister").style.display = "none";
-                // Add this user to Firebase Database
-                var database_ref = database.ref();
-              
-                // create user last login timestamp
-                var user_data = {
-                last_login : Date.now()
-                }
-              
-                // Push to Firebase Database and route to the dashboard
-                database_ref.child('users/' + user.uid).update(user_data);
-                window.location.href = "html/dashboardPage.html";
+
             } else {
                 //if the user does not have a database
                 console.log("No data available");
