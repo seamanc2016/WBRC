@@ -65,7 +65,7 @@ function register () {
         full_name : full_name,
         phone : phone,
         age : age,
-        last_login : Date.now(),
+        last_login : Date.now()
     }
               
     // Push to user_data to update the Firebase Realtimne Database
@@ -112,7 +112,7 @@ function adminKeyCheck(adminKeyActual) {
                         admin_perms : bool
                     }
                     //updates user database snapshot with the admin permission false
-                    databaseRef.child('users/' + user.uid).set(user_data);
+                    databaseRef.child('users/' + user.uid).update(user_data);
                 }
             } else {
                 //if there is no admin key (which there always should be)
@@ -124,7 +124,12 @@ function adminKeyCheck(adminKeyActual) {
         });
     } else {
         //if admin checkbox is not checked
-        return false;
+        var bool = false;
+        var user_data = {
+            admin_perms : bool
+        }
+        //updates user database snapshot with the admin permission false
+        databaseRef.child('users/' + user.uid).update(user_data);
     }
     
 }

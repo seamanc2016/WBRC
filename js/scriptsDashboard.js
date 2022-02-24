@@ -51,10 +51,23 @@ function logout(){
 }
 
 //function to setup auth parameters and functions upon page load
-document.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", function() {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             adminCheck();
+            dbRef.child("users").child(user.uid).get()
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    //Nothing This is error handling
+                } else {
+                    //if the user does not have a database
+                    console.log("No data available");
+                    //routes to the register page
+                    window.location.href = "../index.html";
+                }
+              }).catch((error) => {
+                    console.error(error);
+              });
         } else {
           // User is signed out
           // ...
