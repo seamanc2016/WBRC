@@ -90,10 +90,12 @@ function adminCheck() {
                 //If the user does have admin perms it shows the admin div and hides the resident div
                 document.getElementById("adminTest").style.display = "inline-block";
                 document.getElementById("residentTest").style.display = "none";
+                document.getElementById("loadingPerms").style.display = "none";                
             } else {
                 //If the user does not have admin perms it hides the admin div and shows the resident div
                 document.getElementById("adminTest").style.display = "none";
                 document.getElementById("residentTest").style.display = "inline-block";
+                document.getElementById("loadingPerms").style.display = "none";    
             }
 
         } else {

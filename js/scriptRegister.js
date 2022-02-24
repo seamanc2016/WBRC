@@ -83,36 +83,31 @@ function adminToggle(checkbox) {
 }
 
 function adminKeyCheck(adminKeyActual) {
-    checkbox = document.getElementById('admin_toggle');
-    if (checkbox.checked == true) {
-        //if admin checkbox is checked
-
-        //Initializing user and databse connection
-        var user = auth.currentUser;
-        const databaseRef = firebase.database().ref();
-        //getting the stored admin key then performing subsequent tasks
-        databaseRef.child("adminkeys").child("key1").get()
-        .then((snapshot) => {
-            var bool;
-            if (snapshot.exists()) {
-                //if there is a admin key available
-                if (String(snapshot.val()) == adminKeyActual){
-                    //if the user inputted admin key matches the admin key stored in the database
-                    bool = true;
-                    var user_data = {
-                        admin_perms : bool
-                    }
-                    //updates user database snapshot with the admin permission true
-                    databaseRef.child('users/' + user.uid).update(user_data);
-                } else {
-                    //if the user inputted admin key doesn't match the admin key stored in the database
-                    console.log("Incorrect admin key");
-                    bool = false;
-                    var user_data = {
-                        admin_perms : bool
-                    }
-                    //updates user database snapshot with the admin permission false
-                    databaseRef.child('users/' + user.uid).update(user_data);
+    var user = auth.currentUser;
+    const databaseRef = firebase.database().ref();
+    //getting the stored admin key then performing subsequent tasks
+    databaseRef.child("adminkeys").child("key1").get()
+    .then((snapshot) => {
+        var bool;
+        if (snapshot.exists()) {
+            //if there is a admin key available
+            if (String(snapshot.val()) == adminKeyActual){
+                //if the user inputted admin key matches the admin key stored in the database
+                bool = true;
+                var user_data = {
+                admin_perms : bool
+                }
+                //updates user database snapshot with the admin permission true
+                databaseRef.child('users/' + user.uid).update(user_data);
+            } else {
+                //if the user inputted admin key doesn't match the admin key stored in the database
+                console.log("Incorrect admin key");
+                bool = false;
+                var user_data = {
+                    admin_perms : bool
+                }
+                //updates user database snapshot with the admin permission false
+                databaseRef.child('users/' + user.uid).update(user_data);
                 }
             } else {
                 //if there is no admin key (which there always should be)
@@ -122,16 +117,6 @@ function adminKeyCheck(adminKeyActual) {
             //if the site can't reach the database
             console.error(error);
         });
-    } else {
-        //if admin checkbox is not checked
-        var bool = false;
-        var user_data = {
-            admin_perms : bool
-        }
-        //updates user database snapshot with the admin permission false
-        databaseRef.child('users/' + user.uid).update(user_data);
-    }
-    
 }
               
 // Validate Functions
