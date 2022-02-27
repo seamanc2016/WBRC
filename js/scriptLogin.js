@@ -175,3 +175,13 @@ function validate_field(field) {
         return true;
     }
 }
+
+
+//logout function for logout buttons.
+function logout() {
+    firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+}, function(error) {
+  // An error happened.
+});
+}
