@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Columbia Challengers</title>
+        <title>West Boca Retirement Community</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/img/navbar-logo.svg" />
         <!-- Font Awesome icons (free version)-->
@@ -18,28 +18,29 @@
     </head>
     <body id="page-top">
 
-        
-     
-        
-        
         <!-- Masthead-->
         <header class="masthead" id = "baseMasthead" style="display: none;">
+            <div class="community-logo">
+                <img class="community-logo img-fluid" src="../assets/img/community-logo-2-2.png" alt="Community Logo">
+            </div>
             <div class="container">
-                <div class="masthead-subheading">Welcome To Our Community</div>
-                <div class="masthead-heading text-uppercase">Let's Get Started</div>
-                <a class="btn btn-primary btn-xl text-uppercase" onclick="mastheadSwitch()">Sign in</a>
+                <a class="btn btn-primary btn-xl text-uppercase resident-login-button" onclick="mastheadSwitch()">Resident Login</a>
             </div>
         </header>
+
         <!-- Masthead-lOGIN-->
         <header class="masthead" id = "loginMasthead" style="display: none;">
             <div class="container" id="test">
-                <div class="masthead-subheading">Firebase Login</div>
-                <input class="masthead-heading" type="email" placeholder="Email..." id="email" />
-                <input class="masthead-heading" type="password" placeholder="Password..." id="password" />
+                <div class="masthead-subheading login-title">Resident Login</div>
+                <div>
+                    <input class="masthead-heading" type="email" placeholder="Email..." id="email" />
+                    <input class="masthead-heading" type="password" placeholder="Password..." id="password" />
+                </div>
                 <p></p>
-                <a class="btn btn-primary btn-xl text-uppercase" onclick="login()">Login</a>
+                <a class="btn btn-primary btn-xl text-uppercase resident-login-button" onclick="login()">Login</a>
             </div>
         </header>
+
         <!-- Masthead-PLACEHOLDER-->
         <header class="masthead" id = "placeholderMasthead" style="display: none;">
             <!-- Navbar to position the logout button at the top right of the screen. Taken and edited code from the dashboard page -->
@@ -54,378 +55,175 @@
             </nav>
             
             <div class="container" id="test">
-                <a class="btn btn-primary btn-xl text-uppercase" href="html/dashboardPage.html">Dashboard</a>
+                <a class="btn btn-primary btn-xl text-uppercase dashboard-button" href="html/dashboardPage.html">Dashboard</a>
             </div>
         </header>
+
         <!-- Masthead-Register-->
         <header class="masthead" id = "placeholderRegister" style="display: none;">
             <div class="container" id="test">
                 <a class="btn btn-primary btn-xl text-uppercase" href="html/registerPage.html">Setup Account</a>
             </div>
         </header>
-        <!-- Services-->
-        <section class="page-section" id="services">
+
+        <!-- Our Community-->
+        <section class="page-section our-community">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Services</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase">About Our Community</h2>
+                    <h3 class="section-subheading text-muted">“The best way to find yourself is to lose yourself in the service of others.” - Mahatma Gandhi</h3>
                 </div>
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">E-Commerce</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+
+                <div class="our-community-body">
+                    <p>
+                        <strong>West Boca Retirement Community (WBRC)</strong> is a magnificent Active Adult +55 community that was built by Olman Luxury Suites from 2018 to 2022 and offered two
+                        different home collections; The Renaissance Collection and The Reserve Collection.  Between both collections there are 500 single family homes in WBRC, 
+                        which are situated on a waterfront or private lot.<br><br>
+                    </p>
+                    
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p>
+                                The Renaissance Collection had 4 different floorplans to choose from with a living square footage ranging from 1,886 up to 2,374. The smallest home features 
+                                2 Bedrooms + Den, 2 Bathrooms and a 2 Car Garage and the largest home also has 2 Bedrooms + Den, but has a half bath more. Every home in this collection has 
+                                a minimum lot size of 50'x110' and is one story. 
+                            </p>
+                            <p>
+                                <strong>Renaissance Collection:</strong>
+                                <ul>
+                                    <li>
+                                        <strong>Coronado - 1,886 AC Sq Ft</strong>
+                                        <ul>
+                                            <li>2 Bedrooms + Den</li>
+                                            <li>2 Bathrooms</li>
+                                            <li>2 Car Garage</li>
+                                        </ul>
+                                    </li>
+        
+                                    <li>
+                                        <strong>Fontana - 2,246 AC Sq Ft</strong>
+                                        <ul>
+                                            <li>2 Bedrooms + Den</li>
+                                            <li>2.5 Bathrooms</li>
+                                            <li>2 Car Garage</li>
+                                        </ul>
+                                    </li>
+        
+                                    <li>
+                                        <strong>Ventana - 2,322 AC Sq Ft</strong>
+                                        <ul>
+                                            <li>2 Bedrooms + Den</li>
+                                            <li>2.5 Bathrooms</li>
+                                            <li>2 Car Garage</li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <strong>Ventana - 2,322 AC Sq Ft</strong>
+                                        <ul>
+                                            <li>2 Bedrooms + Den</li>
+                                            <li>2.5 Bathrooms</li>
+                                            <li>2 Car Garage</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <p>
+                                The Reserve Collection had 3 different floorplans to choose from with a living square footage ranging from 
+                                2,535 up to 3,328.  The smallest home features 3 Bedrooms + Den, 3 Bathrooms and a 2 Car Garage while the largest
+                                home has 3 Bedrooms + Dent and 3.5 Bathrooms.  All of the homes in this collection are also one story, except two of 
+                                the floorplans had an option for a guest suite to be built above the garage.  Lot sizes in the Reserve Collection are
+                                much larger than the Renaissance Collection and will be a minimum of 70'x110'.  
+                            </p>
+                            <p>
+                                <strong>Reserve Collection:</strong>
+                                <ul>
+                                    <li>
+                                        <strong>Seabourn - 2,535 AC Sq Ft</strong>
+                                        <ul>
+                                            <li>3 Bedrooms + Den</li>
+                                            <li>3 Bathrooms</li>
+                                            <li>2 Car Garage</li>
+                                        </ul>
+                                    </li>
+        
+                                    <li>
+                                        <strong>Montego - 2,753-3,328 AC Sq Ft</strong>
+                                        <ul>
+                                            <li>3-4 Bedrooms + Den</li>
+                                            <li>2.5-3.5 Bathrooms</li>
+                                            <li>2 Car Garage</li>
+                                            <li>Guest Suite Option</li>
+                                        </ul>
+                                    </li>
+        
+                                    <li>
+                                        <strong>Toscana - 2,776-3,118 AC Sq Ft</strong>
+                                        <ul>
+                                            <li>3-4 Bedrooms + Den</li>
+                                            <li>2.5-3.5 Bathrooms</li>
+                                            <li>2 Car Garage</li>
+                                            <li>Guest Suite Option</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>  
                     </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Responsive Design</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+
+                    <br>
+
+                    <p>
+                        All of the homes in WBRC are part of a homeowners association, which has a quarterly HOA fee and includes all of the amenities 
+                        listed below along with 24-hour manned gatehouse, basic cable, common area maintenance, lawn, landscaping and irrigation maintenance.<br><br>
+
+                        <strong>The resort style amenities at the WBRC include:</strong><br>
+                    </p>
+
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <li>Swimming Pool</li>
+                            <li>Lap Lanes</li>
+                            <li>Fitness Center</li>
+                            <li>Card Room</li>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <li>Aerobics Studio</li>
+                            <li>Steam Room</li>
+                            <li>Men's & Women's Locker Room</li>
+                            <li>Library</li>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <li>Screened and Covered Patio</li>
+                            <li>Outdoor Patio</li>
+                            <li>Sports Lounge</li>
+                            <li>Local Store</li>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <li>Ballroom</li>
+                            <li>Arts and Crafts Studio</li>
+                            <li>Billiards Room</li>
+                            <li>Access to WBRC Shuttle</li>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Web Security</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </div>
+
                 </div>
             </div>
         </section>
-        <!-- Portfolio Grid-->
-        <section class="page-section bg-light" id="portfolio">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Portfolio</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <!-- Portfolio item 1-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="assets/img/portfolio/1.jpg" alt="..." />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Threads</div>
-                                <div class="portfolio-caption-subheading text-muted">Illustration</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <!-- Portfolio item 2-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="assets/img/portfolio/2.jpg" alt="..." />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Explore</div>
-                                <div class="portfolio-caption-subheading text-muted">Graphic Design</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <!-- Portfolio item 3-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal3">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="assets/img/portfolio/3.jpg" alt="..." />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Finish</div>
-                                <div class="portfolio-caption-subheading text-muted">Identity</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                        <!-- Portfolio item 4-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal4">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="assets/img/portfolio/4.jpg" alt="..." />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Lines</div>
-                                <div class="portfolio-caption-subheading text-muted">Branding</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
-                        <!-- Portfolio item 5-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal5">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="assets/img/portfolio/5.jpg" alt="..." />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Southwest</div>
-                                <div class="portfolio-caption-subheading text-muted">Website Design</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <!-- Portfolio item 6-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal6">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="assets/img/portfolio/6.jpg" alt="..." />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Window</div>
-                                <div class="portfolio-caption-subheading text-muted">Photography</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <footer class="footer py-4">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2021</div>
-                    <div class="col-lg-4 my-3 my-lg-0">
-                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
-                    </div>
-                </div>
-            </div>
+
+        <!--Footer-->
+        <footer>
+            Disclaimer: This website is for an imaginary neighborhood. Copyright &copy; Columbia Challengers 2022.
         </footer>
-        <!-- Portfolio Modals-->
-        <!-- Portfolio item 1 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/1.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Threads
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Illustration
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-times me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 2 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/2.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Explore
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Graphic Design
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-times me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 3 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/3.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Finish
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Identity
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-times me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 4 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/4.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Lines
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Branding
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-times me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 5 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/5.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Southwest
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Website Design
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-times me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 6 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/6.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Window
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Photography
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-times me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
+
 
         <!--Firebase SDK-->
         <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
