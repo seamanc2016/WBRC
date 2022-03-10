@@ -1,0 +1,189 @@
+:root{
+    --cc-dark-storm: #001B2E;
+    --cc-light-storm: #294C60;
+    --cc-light-purple: #ADB6C4;
+    --cc-sand: #FFEFD3;
+    --cc-salmon: #FFC49B;
+}
+
+/*Navbar Edits*/
+#mainNav{
+  background-color: var(--cc-light-storm);
+  border-bottom:solid 5px var(--cc-dark-storm);
+}
+
+#navbar-toggler,#edit-button,#save-button,#set-date-button,
+#submit-payment{
+  background-color: var(--cc-dark-storm);
+  color:var(--cc-sand);
+  border:solid 1px var(--cc-sand);
+  font-weight:600;
+}
+
+#navbar-toggler:hover,#edit-button:hover,#save-button:hover,
+#set-date-button:hover,#submit-payment:hover{
+  background-color: var(--cc-salmon);
+  color:var(--cc-dark-storm);
+  border:solid 1px var(--cc-light-purple);
+}
+
+#nav-item{
+  color:var(--cc-sand);
+  font-weight: 600;
+}
+
+#nav-item:hover{
+  color: var(--cc-salmon);
+}
+
+header{
+background-position: inherit;
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
+
+
+header>h3{
+    font-size: 20px;
+    font-weight: bolder;
+    color:var(--cc-dark-storm);
+    text-shadow: 3px 3px var(--cc-salmon);
+}
+
+header>h1{
+    font-weight: bolder;
+    color: var(--cc-dark-storm);
+    text-shadow: 3px 3px var(--cc-salmon);
+}
+
+
+/* Code modified from "Multi Step Form with progress bar jQuery and CSS3" by webbarks. */
+/* Original Source: https://codepen.io/webbarks/pen/QWjwWNV */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Slab:wght@400;700&display=swap');
+
+html {
+  height: 100%;
+  min-height:800px;
+}
+
+body {
+    color:var(--cc-sand);
+    background-color: var(--cc-sand);
+    background-size:cover;
+    background-repeat:no-repeat;
+    text-align: center;
+    font-family: 'Noto Sans', sans-serif;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+h1.inner-heading{
+  text-transform: uppercase;
+  padding-top:0;
+  margin-top:0;
+  font-family: 'Roboto Slab', serif;
+  color:var(--cc-dark-storm);
+  font-weight:900;
+  text-shadow: 3px 3px 3px white;
+}
+
+h2.inner-subtext{
+  padding-top:0;
+  margin-top:0;
+  font-family: 'Roboto Slab', serif;
+  color:var(--cc-sand);
+  font-weight:600;
+  font-size: 20px;
+}
+
+#svg_form_time {
+  height: 15px;
+  max-width: 80%;
+  margin: 40px auto 20px;
+  display: block;
+}
+
+#svg_form_time circle,
+#svg_form_time rect {
+  fill: white;
+}
+
+.button {
+  background: var(--cc-light-storm);
+  border-color: var(--cc-dark-storm);
+  border-width:5px;
+  border-style:solid;
+  border-radius: 5px;
+  padding: 15px 25px;
+  display: inline-block;
+  margin: 10px;
+  font-weight: bold;
+  color: var(--cc-sand);
+  cursor: pointer;
+  box-shadow:0px 2px 5px rgb(0,0,0,0.5);
+}
+
+#save-button,#payment-confirmation, #making-payment,#date-selected{
+    display: none;
+}
+
+input:disabled,select:disabled{
+    background-color: var(--cc-light-purple);
+}
+
+
+/*This is for the Continue button. Don't mess with.*/
+.disabled {
+  display:none;
+}
+
+section {
+  padding: 50px ;
+  max-width: 1100px;
+  margin: 30px auto;
+  background:var(--cc-light-storm); /*Outer Box*/
+  border-color: var(--cc-dark-storm);
+  border-width:10px;
+  border-style:solid;
+  backdrop-filter:blur(10px);
+  box-shadow:0px 2px 10px rgba(0,0,0,0.3);
+  border-radius:10px;
+  transition:transform 0.2s ease-in-out;
+}
+
+
+.personal-info, #orientation-date, .payment-info{
+  width: 100%;
+  margin: 7px 0px;
+  display: inline-block;
+  padding: 12px 25px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 3px solid var(--cc-dark-storm);
+  font-size: 1em;
+  font-family:inherit;
+  background:var(--cc-sand);
+  font-weight:600;
+}
+
+#save-card-info, #coc-agreement{
+  margin-top:10px;
+  margin-right:5px;
+}
+
+#save-label,#agree-label{
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'Roboto Slab', serif;
+}
+p,ol{
+  text-align:justify;
+  margin:0;
+}
+/* *****************  Multistep Form - CITATION END  ************************ */
+

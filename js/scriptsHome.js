@@ -7,6 +7,7 @@
 // Scripts
 // 
 
+
 window.addEventListener('DOMContentLoaded', event => {
 
     // Navbar shrink function
@@ -58,3 +59,31 @@ function mastheadSwitch() {
     document.getElementById("loginMasthead").style.display = "block";
 }
 
+
+
+
+
+//Sends the user back to their account setup if they haven't finished it yet, else, they go to the dashboard.
+//You don't need to call the Firebase stuff again because it's already in memory. You can even use variables from the other files too!
+//Why? Because this script comes after the Firebase stuff in index.html! 
+document.getElementById("dashboard-button").addEventListener("click", setupCompletionCheck);
+function setupCompletionCheck() {
+    auth.onAuthStateChanged((user) => {
+        var uid = user.uid;
+        const dbRefEntry = database.ref().child("users").child(uid);
+        dbRefEntry.get().then((snapshot) => {
+            if (snapshot.exists()) {
+                
+                if(snapshot.val().accountSetupDone == false)
+                    window.location.href = "../html/accountSetup.html";
+                else
+                    window.location.href = "../html/dashboardPage.html";
+
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    })
+}
