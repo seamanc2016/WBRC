@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+    <!--CSS and Scripts for Multistep Form-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="../css/accountSetup.css" rel="stylesheet">
+
+
+    <!--CSS and Scripts for Card Payment System-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js"></script>
+    <script src="../js/cardPayment.js"></script>
+    <link href="../css/cardPayment.css" rel="stylesheet">
+
+
+
+    <title>Resident Checklist</title>
+    <!--Add a favicon-->
+
+</head>
+
+<body>
+
+
+    <!--Needs Navbar for Logout and home button-->
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="mainNav">
+        <div class="container">
+            <button class="navbar-toggler" id="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                MENU
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item" ><a class="nav-link" id="nav-item" onclick="logout()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+    <!--Title and Instructions-->
+    <header>
+        <h1>NEW RESIDENT CHECKLIST</h1>
+        <h3>This setup is mandatory in order to proceed to the Dashboard. Please follow the instructions below and submit information
+            required as expected and then you'll be allowed to continue.</h3>
+    </header>
+
+
+    <!--Code below copied/modified from "Multi Step Form with progress bar jQuery and CSS3" by webbarks.-->
+    <!--Original Source: https://codepen.io/webbarks/pen/QWjwWNV-->
+    <!-- "Multistep Form" Code Starts Here -->
+    <div id="svg_wrap"></div>
+    <form action="/">
+        
+    </form>
+    <section id="personal-info">
+        <h1 class="inner-heading">Personal Information</h1>
+        <h2 class="inner-subtext">
+            This is the information we received from you upon registration.
+            Please check for any errors and adjust duly.
+        </h2><br>
+        <div class="row">
+            <div class="col-6">
+                <p>First Name:</p>
+                <input class="personal-info" type="text" value="" placeholder="" disabled/>
+            </div>
+            <div class="col-6">
+                <p>Last Name:</p>
+                <input class="personal-info" type="text" value="" placeholder="" disabled/>
+            </div>
+        </div>
+
+        <div class="row">   
+            <div class="col-4">
+                <p>55 or Older:</p>
+                <!--
+                <input class="personal-info" type="text" value="" maxlength="1" placeholder="" disabled/>
+                -->
+                <select class="personal-info" name="isSenior" disabled>
+                    <option value="blank"></option>
+                    <option value="no">NO</option>
+                    <option value="yes">YES</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <p>Household Size:</p>
+                <input class="personal-info" type="number" value=""  min="1" max="10" placeholder="" disabled/>
+
+            </div>
+            <div class="col-4">
+                <p>Number of Vehicles On Property:</p>
+                <input class="personal-info" type="number" value=""  min="1" max="9" placeholder="" disabled/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <p>Unit #:</p>
+                <input class="personal-info" type="text" value="" maxlength="4" placeholder="" disabled/>
+            </div>
+            <div class="col-9">
+                <p>Street:</p>
+                <input class="personal-info" type="text" value="" placeholder="" disabled/>
+            </div>
+        </div>
+
+        <p>Email Address:</p>
+        <input class="personal-info" type="text" value="" placeholder="" disabled/>
+        <p>Phone Number (10 digits; No spaces or symbols):</p>
+        <input class="personal-info" type="text" maxlength="10" pattern="^[A-za-z]{10}" value="" placeholder="" disabled/>
+ 
+
+        <button id="edit-button" onclick="enableInput()">Edit</button>
+        <button id="save-button">Save</button>
+
+
+    </section>
+
+    <section id="orientation-selection">
+        <div id="date-selection">
+            <h1 class="inner-heading">Orientation Date Selection</h1>
+            <h2 class="inner-subtext">The West Boca Retirement Community HOA provies an orientation with the goal of familiarizing 
+                newcomers with the rules, expectations, layout and amenities of the community. The orientation is led by one of our very own 
+                associates so scheduling is fairly lax! As such, please select a date for your orientation. 
+            </h2><br>
+    
+            <p>Pick an Orientation Date:</p>
+            <input type="date" id="orientation-date" name="orientation-date"><br><br>
+            <button id="set-date-button">Set Date</button>
+        </div>
+
+        <div id="date-selected">
+            <h1 class="inner-heading">Orientation Date Set!</h1>
+            <img src="../assets/img/completion-checkmark-1.png" alt="checkmark"/>
+            <h2 class="inner-subtext" id="date-selected-message">
+                <!--The appropriate message goes here. Use JS-->
+            </h2><br>
+        </div>
+
+        
+
+    </section>
+
+
+    <!--Code below copied/modified from "Credit Card Payment Form" by Adam Quinlan-->
+    <!--Original source: https://codepen.io/quinlo/pen/YONMEa -->
+    <!-- "Credit Card Payment Form" Code Starts Here-->
+
+    <section id="card-payment">
+        <div id="payment-info">
+            <h1 class="inner-heading">Make Initial Payment</h1>
+            <h2 class="inner-subtext">
+            An initial payment of $200.00 is required as dictated by the West Boca Retirment 
+            Community HOA Rules and Regulations. This payment is mandatory in order to have access to the website.
+            </h2>
+            
+            <div class="field-container">
+                <p>Name on Card:</p>
+                <input class="payment-info" id="name" maxlength="20" type="text">
+            </div>
+            <div class="field-container">
+                <div class="row">
+                    <div class="col-10">
+                        <p>Card Number:</p>
+                    </div>
+                    <div class="col-2">
+                        <span id="generatecard">generate random</span>
+                    </div>
+                </div>
+                <input class="payment-info" id="cardnumber" type="text" pattern="[0-9]*" maxlength="16" inputmode="numeric">
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <p>Expiration (mm/yy)</p>
+                    <input class="payment-info" id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+                <div class="col-6">
+                    <p>Security Code<p>
+                        <input class="payment-info" id="securitycode" type="text" pattern="[0-9]*"  maxlength="3" inputmode="numeric">
+                </div>
+            </div>
+            <div class="d-flex justify-content-start">
+                <input type="checkbox" id="save-card-info" name="save-card-info" value="save-card-info">
+                <label id="save-label" for="save-card-info"> Save my card information for later use.</label><br>
+            </div>
+            <br>
+            <div class="d-flex justify-content-between">
+                    <img src="../assets/img/trust-badge.png" alt="trust-badge" height="75px" />
+                    <button id="submit-payment">Submit Payment</button>
+            </div>    
+        </div>
+        <div id="making-payment">
+            <h1 class="inner-heading">Making Payment...</h1>
+            <div class="lds-dual-ring"></div>
+        </div>
+        <div id="payment-confirmation">
+            <h1 class="inner-heading">Initial Payment Complete!</h1>
+            <img src="../assets/img/completion-checkmark-1.png" alt="checkmark"/>
+            <h2 class="inner-subtext">You've succesfully made the required initial payment of $200.00. </h2>
+        </div>
+    </section>
+
+    <!-- "Credit Card Payment Form" Code Ends Here-->
+
+
+    <section id="code-of-conduct">
+        <h1 class="inner-heading">ColChal Code of Conduct</h1>
+        <h2 class="inner-subtext">This website provides a means of communication between the residents and staff of WBRC. By agreeing
+            to these terms, you submit that you'll abide by these rules:
+        </h2><br>
+        <ol>
+            <li>
+                Please be polite to your fellow residents. Inappropriate conduct or harassment towards chat participants 
+                will not be tolerated and the session will be immediately terminated.
+            </li>
+            <li>
+                No Vulgar language. Vulgar or abusive language, masked with symbols, characters or otherwise, 
+                will not be tolerated and the session will be immediately terminated.
+            </li>
+            <li>
+                No racist remarks, sexually oriented remarks, or religious persecution will be tolerated; any such 
+                remarks will trigger the immediate termination of the chat session.
+            </li>
+            <li>
+                Actions that seem specifically designed to test the limits of what is not offensive and to serve no 
+                other purpose will not be tolerated and such sessions will be immediately terminated.
+            </li>
+            <li>
+                Any other action that shall, at the sole discretion of WBRC administration, be deemed offensive will not 
+                be tolerated and shall trigger the immediate termination of the chat session.
+            </li>
+        </ol>
+        <br><br>
+        <div class="d-flex justify-content-center">
+                <input type="checkbox" id="coc-agreement" name="coc-agreement" value="agree">
+                <label id="agree-label" for="coc-agreement"> I have read and agree to the terms listed above.</label><br>
+        </div>
+
+
+    </section>
+
+    <section id="setup-complete">
+        <h1 class="inner-heading">You're All Set!</h1>
+        <img src="../assets/img/thumbs-up.png" alt="thumbs-up"/><br><br>
+        <h2 class="inner-subtext">You've completed all necessary steps. We are pleased to welcome you as a new member to the WBRC Family! Hope you enjoy your stay. </h2>
+    </section>
+
+    <button class="button" id="prev">&larr; Previous</div>
+    <button class="button" id="next">Next &rarr;</div>
+    <button class="button" id="submit">Continue</div>
+
+    <!-- "Multistep Form" Code Ends Here -->
+
+
+
+
+
+
+
+    <!--Firebase SDK-->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="../js/accountSetup.js"></script>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <!--Needed for checklist to function-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
