@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Simple Sidebar - Start Bootstrap Template</title>
+        <title>West Boca Retirement - Dashboard</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -13,37 +13,20 @@
     </head>
     <body>
         <div class="d-flex" id="wrapper">
-            <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!" onclick="testUserId()" >Dashboard</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
-                </div>
-            </div>
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <nav class="navbar navbar-expand-lg navbar-light border-bottom">
                     <div class="container-fluid">
-                        <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <div class="sidebar-heading" style="border-style: none; font-size: 13pt;">West Boca Retirement | Dashboard</div>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                                <li class="nav-item active"><a class="nav-link" href="../index.html">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#!">Action</a>
-                                        <a class="dropdown-item" href="#!">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" onclick="logout()" href="../index.html">Logout</a>
-                                    </div>
+                                
+                                <li class="nav-item active salmon">
+                                    <a class="nav-link salmon" href="../index.html">Home</a>
+                                </li>
+                                <li class="nav-item active salmon">
+                                    <a class="nav-link salmon" onclick="logout()" href="../index.html">Logout</a>
                                 </li>
                             </ul>
                         </div>
@@ -51,17 +34,132 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-                    <h1 class="mt-4" id="loadingPerms" style="display: inline-block;">...</h1>
-                    <h1 class="mt-4" id="adminTest" style="display: none;">Yo Ima Admin</h1>
-                    <h1 class="mt-4" id="residentTest" style="display: none;">Yo Ima Resident</h1>
-                    <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
+                    <br><br>
+                    
+                    <div class="tiles">
+                        
+                        
+                        <div class="item" onclick="window.location='eventActivitiesPage.html';"> 
+                            <img class = "tile-image" src="../assets/img/calendar.png" alt="events symbol" width="200" height="180"> 
+                            
+                            <div class="tile-content">
+                                <p class="tile-content-text">
+                                    Events and Forums
+                                </p>
+                            </div> 
+                            
+                            <div class="tile-info"> 
+                                <div>
+                                Get in touch with the community with in the discussion board, and see weekly events
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item" onclick="window.location='AccountPage.html';"> 
+                            <img class = "tile-image" src="../assets/img/account.png" alt="events symbol" width="200" height="200"> 
+                            
+                            <div class="tile-content">
+                                <p class="tile-content-text">
+                                    My Account
+                                </p>
+                            </div> 
+                            
+                            <div class="tile-info"> 
+                                <div>
+                                View and change your personal information
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="item" onclick="window.location='VisitorRegistrationPage.html';"> 
+                            <img class = "tile-image" src="../assets/img/register.png" alt="events symbol" width="200" height="200"> 
+                            
+                            <div class="tile-content">
+                                <p class="tile-content-text">
+                                    Visitor and Club Registration
+                                </p>
+                            </div> 
+                            
+                            <div class="tile-info"> 
+                                <div>
+                                Manage your visitor list, and reigster clubs here
+                                </div>
+                            </div>
+                        </div>  
+                        
+                        <div class="item" onclick="window.location='StorePage.html';"> 
+                            <img class = "tile-image" src="../assets/img/store.png" alt="events symbol" width="200" height="200"> 
+                            
+                            <div class="tile-content">
+                                <p class="tile-content-text">
+                                    Store Page
+                                </p>
+                            </div> 
+                            
+                            <div class="tile-info"> 
+                                <div>
+                                Manage your cart and confirm transactions
+                                </div>
+                            </div>
+                        </div>  
+                        
+                        <div class="item" onclick="window.location='BillingPage.html';"> 
+                            <img class = "tile-image" src="../assets/img/billing.png" alt="billing symbol" width="200" height="200"> 
+                            
+                            <div class="tile-content">
+                                <p class="tile-content-text">
+                                    Billing and Payments
+                                </p>
+                            </div> 
+                            
+                            <div class="tile-info"> 
+                                <div>
+                                Make monthly payments and manage any fines
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item" onclick="window.location='InfoHelpPage.html';"> 
+                            <img class = "tile-image" src="../assets/img/info.png" alt="events symbol" width="200" height="200"> 
+                            
+                            <div class="tile-content">
+                                <p class="tile-content-text">
+                                    Help, Resources, and Info
+                                </p>
+                            </div> 
+                            
+                            <div class="tile-info"> 
+                                <div>
+                                Community Guidelines, Transformation Info, and Neighborhood Resources
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="item adminTile" id="adminDB" style="display:none" onclick="window.location='AdminDB.html';"> 
+                            
+                            <img class = "tile-image" src="../assets/img/darkkey.png" alt="events symbol" width="200" height="200"> 
+                            
+                            <div class="tile-content">
+                                <p class="tile-content-text">
+                                    Administrator Dashboard
+                                </p>
+                            </div> 
+                            <div class="tile-info" style="color: var(--cc-dark-storm);"> 
+                                <div>
+                                View and manage community info
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    <!--Formatting the bottom of the page-->
+                    <div>
                     <p>
-                        Make sure to keep all page content within the
-                        <code>#page-content-wrapper</code>
-                        . The top navbar is optional, and just for demonstration. Just create an element with the
-                        <code>#sidebarToggle</code>
-                        ID which will toggle the menu when clicked.
+                    <br> <br>
                     </p>
+                    </div>
+                    
+                    
+                    
                 </div>
             </div>
         </div>

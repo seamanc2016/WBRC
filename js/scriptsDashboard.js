@@ -76,6 +76,8 @@ window.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
+
 //function custom to the dashboard (for now) that shows how revealing and hiding admin features can work
 function adminCheck() {
     //initialize user auth
@@ -88,14 +90,12 @@ function adminCheck() {
         if (snapshot.exists()) {
             if(snapshot.val() == true) {
                 //If the user does have admin perms it shows the admin div and hides the resident div
-                document.getElementById("adminTest").style.display = "inline-block";
-                document.getElementById("residentTest").style.display = "none";
-                document.getElementById("loadingPerms").style.display = "none";                
+                document.getElementById("adminDB").style.display = "grid";
+                              
             } else {
                 //If the user does not have admin perms it hides the admin div and shows the resident div
-                document.getElementById("adminTest").style.display = "none";
-                document.getElementById("residentTest").style.display = "inline-block";
-                document.getElementById("loadingPerms").style.display = "none";    
+                document.getElementById("adminDB").style.display = "none";
+ 
             }
 
         } else {
