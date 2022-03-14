@@ -3943,9 +3943,8 @@ textarea.form-control-lg {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: #0d6efd;
   text-decoration: none;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
   .nav-link {
@@ -3953,10 +3952,8 @@ textarea.form-control-lg {
   }
 }
 .nav-link:hover, .nav-link:focus {
-  color: #0a58ca;
 }
 .nav-link.disabled {
-  color: #6c757d;
   pointer-events: none;
   cursor: default;
 }
@@ -3976,13 +3973,11 @@ textarea.form-control-lg {
   isolation: isolate;
 }
 .nav-tabs .nav-link.disabled {
-  color: #6c757d;
   background-color: transparent;
   border-color: transparent;
 }
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #495057;
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }
@@ -3999,7 +3994,6 @@ textarea.form-control-lg {
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
   background-color: #0d6efd;
 }
 
@@ -4444,17 +4438,17 @@ textarea.form-control-lg {
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
   color: rgba(0, 0, 0, 0.9);
 }
-.navbar-light .navbar-nav .nav-link {
+.navbar-light .navbar-nav {
   color: rgba(0, 0, 0, 0.55);
 }
-.navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
+.navbar-light .navbar-nav, .navbar-light .navbar-nav {
   color: rgba(0, 0, 0, 0.7);
 }
-.navbar-light .navbar-nav .nav-link.disabled {
+.navbar-light .navbar-nav {
   color: rgba(0, 0, 0, 0.3);
 }
-.navbar-light .navbar-nav .show > .nav-link,
-.navbar-light .navbar-nav .nav-link.active {
+.navbar-light .navbar-nav,
+.navbar-light .navbar-nav {
   color: rgba(0, 0, 0, 0.9);
 }
 .navbar-light .navbar-toggler {
@@ -4479,17 +4473,17 @@ textarea.form-control-lg {
 .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
   color: #fff;
 }
-.navbar-dark .navbar-nav .nav-link {
+.navbar-dark .navbar-nav {
   color: rgba(255, 255, 255, 0.55);
 }
-.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
+.navbar-dark .navbar-nav .navbar-dark .navbar-nav {
   color: rgba(255, 255, 255, 0.75);
 }
-.navbar-dark .navbar-nav .nav-link.disabled {
+.navbar-dark .navbar-nav {
   color: rgba(255, 255, 255, 0.25);
 }
-.navbar-dark .navbar-nav .show > .nav-link,
-.navbar-dark .navbar-nav .nav-link.active {
+.navbar-dark .navbar-nav
+.navbar-dark .navbar-nav {
   color: #fff;
 }
 .navbar-dark .navbar-toggler {
@@ -11325,4 +11319,119 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 /*makes cursor a pointer while hovering over logout in dashboardPage.html*/
 .nav-item {
     cursor: pointer;
+}
+
+ 
+.tiles {
+    margin: 0 auto;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+    gap: 20px;
+}
+
+.item {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    
+    border-style: solid;
+    border-width: thick;
+    border-color:var(--cc-dark-storm);
+    background: var(--cc-light-storm);
+    color: var(--cc-sand)
+    
+}
+
+
+.tile-image {
+    padding: 20px;
+    width: 100%;
+    display: block;
+}
+
+.tile-content {
+    line-height: 1.5;
+    font-size: 1.5em;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 0;
+    text-align: center;
+}
+
+.tile-content-text {
+    margin-top: 0;
+    margin-bottom: 10px;
+    
+}
+
+.tile-info {
+    text-align: center;
+    line-height: 1.5;
+    font-size: 0.9em;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    color: var(--cc-sand);
+}
+
+#page-content-wrapper {
+    background-color: var(--cc-sand);
+    border-left-style: solid;
+    border-width: 3px;
+    border-color: var(--cc-darkstorm)
+}
+
+.item:hover {
+    border-width: 8px;
+    cursor: pointer;
+    color: var(--cc-salmon);
+    background-color: #3d5969;
+}
+
+
+.sidebar {
+    background-color: var(--cc-light-storm);
+    
+}
+.sidebar-heading {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-color: var(--cc-dark-storm);
+    background-color: var(--cc-light-storm);
+    color: var(--cc-salmon);
+    font-weight: bold;
+    
+}
+
+.sidebar-item {
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-top-width: thin;
+    border-bottom-width: thin;
+    border-color: var(--cc-dark-storm);
+    background-color: var(--cc-light-storm);
+    color: var(--cc-sand);
+    
+}
+
+.adminTile {
+     background-color: #7377bf;
+     color: var(--cc-dark-storm);
+}
+
+.adminTile:hover {
+     background-color: #9598c4;
+     color: black;
+}
+.navbar {
+    background-color: var(--cc-light-storm);
+    
+}
+
+.salmon {
+        color: var(--cc-sand);
+        text-decoration: none;
+}
+
+.salmon:hover {
+    color: var(--cc-salmon);
 }
