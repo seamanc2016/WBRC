@@ -114,3 +114,12 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     font-size: large;
     font-weight: bold;
 }
+
+.section-heading {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.page-heading {
+    font-size: 60px;
+}
