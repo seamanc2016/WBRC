@@ -1,0 +1,116 @@
+/*General stuff*/
+:root{
+    --cc-dark-storm: #001B2E;
+    --cc-light-storm: #294C60;
+    --cc-light-purple: #ADB6C4;
+    --cc-sand: #FFEFD3;
+    --cc-salmon: #FFC49B;
+}
+
+body{
+    background-color: var(--cc-sand);
+}
+
+
+
+/*Both Navbar and Sidebar*/
+#wrapper {
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+  
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+}
+
+#top-navbar, #sidebar-wrapper,.sidebar-nav-item{
+    background-color: var(--cc-light-storm);
+    color:var(--cc-salmon);
+    border:solid 1px var(--cc-dark-storm);
+    font-weight: 400;
+
+}
+
+
+.sidebar-heading{
+    font-weight:900;
+
+    color:var(--cc-dark-storm);
+    text-shadow: 1px 1px 3px var(--cc-sand);
+}
+
+#sidebarToggle{
+    background-color: var(--cc-salmon);
+    color:var(--cc-dark-storm);
+    border:solid 1px var(--cc-dark-storm);
+    font-weight: 600;
+}
+
+#top-nav-item{
+    color:var(--cc-sand);
+    font-weight: 600;
+}
+#top-nav-item:hover{
+    color: var(--cc-salmon);
+}
+
+#navbar-toggler{
+    background-color: var(--cc-light-purple);
+}
+
+#navbar-menu-button{
+    background-color: var(--cc-salmon);
+    border: var(--cc-dark-storm);
+}
+
+.sidebar-nav-item-selected{
+    background-color: var(--cc-salmon);
+    color: var(--cc-dark-storm);
+    font-weight: 700;
+}
+
+.inner-navbar {
+    background-color: var(--cc-salmon);
+    padding: 0.875rem 1.25rem;
+}
+
+.inner-navbar-item {
+    color: var(--cc-light-storm);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: large;
+    font-weight: bold;
+}
