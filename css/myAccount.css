@@ -1,0 +1,235 @@
+/*General stuff*/
+:root{
+    --cc-dark-storm: #001B2E;
+    --cc-light-storm: #294C60;
+    --cc-light-purple: #ADB6C4;
+    --cc-sand: #FFEFD3;
+    --cc-salmon: #FFC49B;
+}
+
+body{
+    background-color: var(--cc-sand);
+}
+
+
+
+/*Both Navbar and Sidebar*/
+#wrapper {
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+  
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+}
+
+#top-navbar, #sidebar-wrapper,.sidebar-nav-item{
+    background-color: var(--cc-light-storm);
+    color:var(--cc-salmon);
+    border:solid 1px var(--cc-dark-storm);
+    font-weight: 400;
+
+}
+
+
+.sidebar-heading{
+    font-weight:900;
+
+    color:var(--cc-dark-storm);
+    text-shadow: 1px 1px 3px var(--cc-sand);
+}
+
+#sidebarToggle{
+    background-color: var(--cc-salmon);
+    color:var(--cc-dark-storm);
+    border:solid 1px var(--cc-dark-storm);
+    font-weight: 600;
+}
+
+#top-nav-item-1,#top-nav-item-2{
+    color:var(--cc-sand);
+    font-weight: 600;
+}
+#top-nav-item-1:hover, #top-nav-item-2:hover{
+    color: var(--cc-salmon);
+}
+
+#navbar-toggler{
+    background-color: var(--cc-light-purple);
+}
+
+#navbar-menu-button{
+    background-color: var(--cc-salmon);
+    border: var(--cc-dark-storm);
+}
+
+.sidebar-nav-item-selected{
+    background-color: var(--cc-salmon);
+    color: var(--cc-dark-storm);
+    font-weight: 700;
+}
+
+/*Body Content*/
+
+input:disabled, select:disabled{
+    border:0;
+    background-color: var(--cc-light-purple);
+    font-weight: 700;
+}
+
+#edit-button,#save-button,#add-card-button,#remove-card-button,
+#save-card-button,#autopay-button-off{
+  background-color: var(--cc-dark-storm);
+  color:var(--cc-sand);
+  border:solid 1px var(--cc-sand);
+  font-weight:600;
+  margin-bottom: 20px;
+}
+
+#edit-button:hover,#save-button:hover,
+#add-card-button:hover,#remove-card-button:hover,
+#save-card-button:hover,#autopay-button-off:hover,#generatecard:hover{
+  background-color: var(--cc-salmon);
+  color:var(--cc-dark-storm);
+  border:solid 1px var(--cc-light-purple);
+}
+
+.personal-info{
+    background-color: var(--cc-sand);
+    font-weight: 700;
+}
+#save-button,#add-card-section,#current-card-section,#autopay-on{
+    display: none;
+}
+
+input,select{
+    height:24px;
+    width:100%
+}
+
+#profile-pic{
+    border:solid 21px var(--cc-salmon);
+    height:365px;
+}
+
+#profile-pic-container{
+    margin-bottom:50px;
+    text-align: center;
+}
+
+#card-info-area{
+    background-color: var(--cc-light-purple);
+    margin-left:20%;
+    margin-right:20%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+    font-weight: 700;
+}
+
+/*.light-purple-bg{
+    background-color: var(--cc-light-purple);
+}
+
+*/
+
+
+/*Table Stuff*/
+th{
+    width:20%;
+    background-color: var(--cc-light-storm) !important;
+    color: var(--cc-salmon);
+}
+
+
+table{
+    border-color: var(--cc-salmon);
+    background-color: var(--cc-light-purple);
+}
+
+/*Card stuff*/
+#generatecard{
+    cursor: pointer;
+    float: right;
+    font-size: 12px;
+    color: var(--cc-sand);
+    padding: 2px 4px;
+    background-color: var(--cc-dark-storm);
+    border-radius: 4px;
+    float:right;
+}
+
+.card-heading{
+    background-color: var(--cc-light-storm);
+    color:var(--cc-salmon);
+    margin-bottom: 10px;
+}
+
+#autopay-button-on{
+    background-color: var(--cc-salmon);
+    color:var(--cc-dark-storm);
+    border:solid 1px var(--cc-light-purple);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+#autopay-button-on:active{
+    background-color: var(--cc-dark-storm);
+    color:var(--cc-sand);
+    border:solid 1px var(--cc-sand);
+    font-weight:600;
+}
+
+.payment-info{
+    background-color: var(--cc-sand);
+    height:35px;
+    font-weight: 700;
+}
+
+#card-info-container{
+    text-align: left;
+}
+
+#trust-badge{
+    margin-left:3.5%;
+    margin-bottom: 20px;
+    width:35%;
+}
+
+#save-card-button{
+    margin-right: 4%;
+    margin-left: 3%
+}
