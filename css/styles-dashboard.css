@@ -82,6 +82,10 @@
   }
 }
 
+#home-link, #logout-link{
+  font-weight: 600;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);

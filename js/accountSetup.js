@@ -118,6 +118,7 @@ firebase.initializeApp(firebaseConfig); //getting access to the app using the ke
 const auth = firebase.auth();
 const database = firebase.database(); //reference to the realtime database
 
+
 //Boots user off page if they're not signed in
 auth.onAuthStateChanged(function(user) {
   if (user) {
