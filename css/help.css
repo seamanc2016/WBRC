@@ -65,11 +65,14 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 }
 
 
-.sidebar-heading{
-    font-weight:900;
-
-    color:var(--cc-dark-storm);
-    text-shadow: 1px 1px 3px var(--cc-sand);
+.sidebar-heading {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-color: var(--cc-dark-storm);
+    background-color: var(--cc-light-storm);
+    color: var(--cc-salmon);
+    font-weight: bold;
+    
 }
 
 #sidebarToggle{
