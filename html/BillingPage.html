@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>West Boca Retirement - Billing</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../css/styles-billing.css" rel="stylesheet" />
+        
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js"></script>
+        <script src="../js/cardPayment.js"></script>
+        
+        <!--for emailing-->
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
+    </head>
+    <body style="background: var(--cc-sand);" >
+        <div class="d-flex" id="wrapper">
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper">
+                <!-- Top navigation-->
+                <nav class="navbar navbar-expand-lg navbar-light border-bottom">
+                    <div class="container-fluid">
+                        <div class="sidebar-heading" style="border-style: none; font-size: 13pt;">West Boca Retirement | Billing</div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                                
+                                <li class="nav-item active salmon">
+                                    <a class="nav-link salmon" href="dashboardPage.html">Dashboard</a>
+                                </li>
+                                <li class="nav-item active salmon">
+                                    <a class="nav-link salmon" onclick="logout()" href="../index.html">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Page content-->
+                <div class="container-fluid bg" >
+                    
+                    <div class="bg" >
+                        
+                        <div class="wrapper" >
+                            <div class="invoice_wrapper" >
+                                
+                                <div id="paymentRequired">
+                                    
+                                <div class= "header" >
+                                    <div class="logo_invoice_wrap">
+                                        <div class="logo_sec">
+                                            
+                                            <div class="title_wrap">
+                                                <p class = "title boldy"> West Boca Retirement</p>
+                                                <p class="sub_title light">Senior Living Community</p>
+                                            </div>
+                                        </div>
+                                        <div class="invoice_sec">
+                                            
+                                            <div class="invoice">
+                                                <p class = "invoice boldy">Bill Info</p>
+                                                <p class = "bill_rules" style = "font-size: 11px;"> Your HOA bill is due on the following date. Should payment be later than the specified date, a <span class ="red" style="color: red;">$50 late fee</span> will be added to your bill.</p>
+                                                <p class = "bill_rules" style = "font-size: 11px;">If there is a failure to pay 3 HOA payments in a row, or a combined total of 6 in a 24 month period, an <span class ="red" style="color: red;">eviction notice</span> will be sent to the residency.</p>
+                                                <p class = "invoice_no">
+                                                    <span class="boldy">Payment Due</span>
+                                                    <span id="paymentDue">3/31/2022</span>
+                                                </p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bill_total_wrap">
+                                        <div class="bill-sec">
+                                            <p>Bill To</p>
+                                            <p class = "boldy name" id="name"> </p>
+                                            <span id="address"> N/A </span>
+                                            <br>
+                                            <span id="phone"> N/A </span>
+                                        </div>
+                                        <div class="total_wrap">
+                                            <p>Total Due</p>
+                                            <p class="boldy price" id="TotalDue" > </p>
+                                        </div>
+                                    </div>
+                                </div>
+            <div class = "bg" style="background-color: white">
+                                    
+                                    <!-- CARD INFO AREA-->
+                                    
+                <section id="card-info-area">
+                    <!--If there is no card on file, show this-->
+                    <div id="no-card-section">
+                        <h2 class="card-heading">Current Card on File</h2>
+                        <div>There is no card on file for this account.</div>
+                        <button id="add-card-button" class = "button" onclick="addCard()">Add Card</button>
+                        <div style=" padding-top: 160px; color:white;">
+                            blank space for making the sizes of each area about equal.
+                        </div>
+                    </div>
+                    
+
+                    <!--If "add card" button is clicked, show this-->
+                    <div id="add-card-section">
+                        <h2 class="card-heading">Add Card</h2>
+                        <div id="card-info-container">
+                            <div class="field-container">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-9" style="text-align: bottom;">
+                                        <p id = "cardNum">Card Number:</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <span id="generatecard">Generate random</span>
+                                    </div>
+                                </div>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-11">
+                                        <input class="payment-info" id="cardnumber" type="text" pattern="[0-9]*"
+                                            maxlength="19" inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row d-flex justify-content-around">
+                                <div class="col-5">
+                                    <p>Expiration:</p>
+                                    <input class="payment-info" id="expirationdate" type="text" pattern="[0-9]*"
+                                        inputmode="numeric">
+                                </div>
+                                <div class="col-5">
+                                    <p>CVV:
+                                    <p>
+                                        <input class="payment-info" id="securitycode" type="text" pattern="[0-9]*"
+                                            maxlength="3" inputmode="numeric">
+                                </div>
+                            </div>
+                            
+
+                                <div class="d-flex justify-content-between">
+                                    <img id="trust-badge" src="../assets/img/trust-badge-dark.png" alt="trust-badge" />
+                                    <button id="save-card-button" class ="button" onclick="saveCard()">Save Card</button>
+                                </div>
+                        </div>
+                    </div>
+
+                    <!--If a card is already set, show this-->
+                    <div id="current-card-section">
+                        <h2 class="card-heading">Current Card on File</h2>
+                        <h3 id="card-on-file">
+                            <!--Will be injected by js-->
+                        </h3>
+                        <button id="remove-card-button" class="button" onclick="removeCard()">Remove Card</button>
+                        <div id="autopay-off" >
+                            <div>
+                                Autopay is currently <em>OFF</em>.
+                            </div>
+                            <button  class = "button"  onclick="toggleAutopayOn()">Toggle Autopay On</button>
+                        </div>
+                        <div id="autopay-on">
+                            <div>
+                                Autopay is currently <em>ON</em>. Quarterly fees will be deducted from the card on file.
+                            </div>
+                            <button  class = "button" onclick="toggleAutopayOff()">Toggle Autopay Off</button>
+                        </div>
+                         
+                        
+                         <!--PAYMENT BUTTON CODE-->
+                    
+                        <div class="d-flex justify-content-between">
+                        <img src="../assets/img/trust-badge-dark.png" alt="trust-badge" height="75px" />
+                        <button  class="buttonSubmit" onclick="submitPayment()">Submit Payment</button></div> 
+                        
+                        <!--PAYMENT BUTTON CODE-->
+                        <div class="d-flex flex-row-reverse" >
+                        <label for="savePay" id="savePayLabel" >Save my payment info for next checkout</label>
+                        <input type="checkbox" id="savePay" name="savePay" value="card" checked>
+                        
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+                                    
+                <!--CARD INFO AREA END-->
+                                    
+        </div>
+                                    
+                           
+
+            <div id="paymentComplete">
+                                                    
+                <div id="payment-confirmation">
+                    <h1 class="inner-heading" style="text-align:center; margin-top: 10px;">Your payment is complete!</h1>
+                    <img src="../assets/img/completion-checkmark-1-dark.png" alt="checkmark" id="completedPayImage"/>
+                    <h2 class="inner-subtext" style=" font-size: 16px; color: var(--cc-light-storm); font-weight: bold; padding-left: 5px;">Payment information:</h2>
+                </div>     
+                                    
+                <div style="padding-left: 10px;">                 
+                    <div id="receiptDate" style="padding-bottom: 7px;">Date: </div>
+                                
+                    <div id="receiptName" >Billed To:</div>
+                    <div id="receiptAddress">Address</div>
+                    <div id="receiptPhone">Phone</div>
+            
+                </div>
+                
+                <div>
+                    <button class= "button" onClick="window.print()">Print this page</button>
+                    <button class="button" value="Email Copy" onclick="sendEmail()">Email Copy</button>
+                    <div id="nextDueDate" style="font-size: 16px; color: var(--cc-light-storm); font-weight: bold; padding: 10px; padding-top: 3px;">Next billing period will open on: </div>
+                </div>
+                
+            </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--Formatting the bottom of the page-->
+                    
+                </div>
+            </div>
+        </div>
+
+        
+
+         <!--Firebase SDK-->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="../js/BillingPage.js"></script>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <!--Needed for checklist to function-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    </body>
+</html>
