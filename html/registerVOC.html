@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Registration</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel='stylesheet' href='../css/registerVOC.css'>
+
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+      <!-- Top navigation-->
+      <nav class="navbar navbar-expand-lg navbar-light  border-bottom" id="top-navbar">
+        <div class="container-fluid">
+          <div class="sidebar-heading" style="border-style: none; font-size: 13pt;">West Boca Retirement |
+            Registration</div>
+          <button class="navbar-toggler" id="navbar-menu-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+              <li class="nav-item active"><a class="nav-link" id="top-nav-item"
+                  href="../html/dashboardPage.html">&leftarrow; Return to Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link" onclick="logout()" id="top-nav-item"
+                  href="../index.html">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!--Inner Page Heading-->
+      <h1 id="inner-page-heading">VISITOR REGISTRATION</h1>
+
+      <!--Inner Nav Bar-->
+      <div class="d-flex justify-content-center">
+        <nav class="navbar" id="inner-nav">
+          <a class="navbar-brand inner-nav-item inner-nav-item-selected" id="visitor-link" href="#">Visitor
+            Registration</a>
+          <a class="navbar-brand inner-nav-item" id="club-comm-link" href="#">Club/Committee Registration</a>
+          <a class="navbar-brand inner-nav-item" id="orientation-link" href="#">Orientation Registration</a>
+        </nav>
+      </div>
+
+      <!--Inner Page Description-->
+      <h3 id="inner-page-description"></h3>
+
+      <!--Visitor Card Template-->
+      <div class="col-lg-8 light-purple-bg visitor-card card-template saved-visitor-card"
+        style="margin-top:10px; margin-bottom:10px" hidden>
+        <table class="table table-bordered visitor-card-table">
+          <tbody>
+
+            <tr>
+              <th scope="row" class="visitor-card-heading" colspan="4">
+                VISITOR #
+              </th>
+            </tr>
+
+            <tr>
+              <th scope="row">First Name:</th>
+              <td>
+                <input class="visitor-card-info" type="text" disabled />
+              </td>
+              <th scope="row">Last Name:</th>
+              <td>
+                <input class="visitor-card-info" type="text" disabled />
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Date In:</th>
+              <td>
+                <input class="visitor-card-info" type="date" disabled />
+              </td>
+              <th scope="row">Date Out:</th>
+              <td>
+                <input class="visitor-card-info" type="date" disabled />
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Purpose:</th>
+              <td colspan="3">
+                <input class="visitor-card-info" type="text" disabled />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center">
+          <button class="edit-visitor-card-button" onclick="editVisitorCard(this)">Edit</button>
+          <button class="delete-visitor-card-button" onclick="deleteVisitorCard(this)">Delete</button>
+          <button class="save-visitor-card-button" onclick="saveVisitorCard(this)">Save</button>
+        </div>
+      </div>
+
+      <!-- Page content Goes Here-->
+      <div id="page-content">
+
+        <!--Visitor Registration Section-->
+        <section id="visitor-registration-section">
+
+
+          <div id="new-card-area"></div>
+
+          <div class="d-flex justify-content-center">
+            <button id="add-visitor-button" onclick="addVisitorCard(this)">ADD NEW+</button>
+          </div>
+
+        </section>
+
+
+        <!--Club/Committee Registration Section-->
+        <section id="club-comm-registration-section">
+          <div class="default"></div>
+
+
+          
+
+          <!--Search Bar-->
+          <div id="search-bar" class="d-flex justify-content-center">
+              <input id="search-bar-field" type="text" placeholder="Enter a keyword...">
+              <button id="search-bar-button">SEARCH</button>
+          </div>
+
+          <!--Showing Results Info-->
+          <h6 id="showing-results">Showing 1 - 10 of 28 entries</h6>
+
+          <!--Search Result Template-->
+          <button class="search-result-template search-result-button" hidden> <!--Fill with Info--> </button>
+
+
+
+          <!--Search Result Template-->
+
+          <!--Search Result Area-->
+          <div id="all-results-area">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td class="table-cell empty-cell">
+                    Empty
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell empty-cell">
+                    Empty
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell empty-cell">
+                    Empty
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell empty-cell">
+                    Empty
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell empty-cell">
+                    Empty
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell empty-cell">
+                    Empty
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell empty-cell">
+                    Empty
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell empty-cell">
+                    Empty
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell empty-cell">
+                    Empty
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell empty-cell">
+                    Empty
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+
+          <!--Button Area-->
+          <div id="showing-results-container" class="container">
+            <div class="d-flex justify-content-around">
+              <button id="add-club-button">Create New Club</button>
+              <div class="d-flex">
+                <button id="previous-button" hidden>Previous</button>
+                <button id="next-button">Next</button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="club-setup"></div>
+
+          <!--View Club Info Template-->
+          <div class="club-info-wrapper club-info-template" hidden>
+            <br>
+            <div class="first-table inner-table" style="background-color:red;">
+              <div class="first-table-title club-info-heading club-title"> Just ImagiKNIT</div>
+              <div class="d-flex justify-content-center first-table-club-picture">
+                <img src="../assets/img/Just ImagiKNIT!-logos.jpeg" alt="just-imagiknit-logo"
+                  style="max-width: 30%; max-height: 30%;">
+              </div>
+              <div class="change-image d-flex justify-content-center" style="background-color: var(--cc-light-storm);">
+                <button>Change Club Picture</button>
+                <input type="file" id="club-photo" name="club-photo" hidden>
+              </div>
+
+            </div>
+            <br>
+
+            <div class="second-table inner-table">
+              <table class="table table-bordered club-info-table">
+                <tr>
+                  <th class="club-info-heading">Type</th>
+                  <th class="club-info-heading">Main Activities</th>
+                  <th class="club-info-heading">Member Count</th>
+                </tr>
+                <tr>
+                  <td class="club-info club-type">
+                    Public
+                  </td>
+                  <td class="club-info club-genre">
+                    Knitting, Sewing, Crochet
+                  </td>
+                  <td class="club-info club-member-count">420</td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="third-table inner-table">
+              <div class="club-info-heading" style="padding: 10px; font-weight: 700;">Description</div>
+              <label for="description-textarea" hidden></label>
+              <textarea class="club-description" id="description-textarea" name="description-textarea"
+                disabled></textarea>
+            </div>
+            <br>
+            <div class="fourth-table inner-table" style="overflow-x: auto;">
+              <div class="club-info-heading" style="padding: 10px; font-weight: 700;"> Key Members</div>
+              <table class="table table-bordered club-info-table">
+                <tr>
+                  <th class="club-info-subheading">Name</th>
+                  <th class="club-info-subheading">Role</th>
+                  <th class="club-info-subheading">Email</th>
+                  <th class="club-info-subheading">Phone</th>
+                </tr>
+                <tr>
+                  <td class="club-info">
+                    <input class="member-info member-name-area" type="text" style="width:100%; border:none;" disabled>
+                  </td>
+                  <td class="club-info">
+                    <input class="member-info member-role-area" type="text" style="width:100%; border:none;" disabled>
+                  </td>
+                  <td class="club-info member-email">
+                    <input class="member-info member-email-area" type="text" style="width:100%; border:none;">
+                  </td>
+                  <td class="club-info member-phone">
+                    <input class="member-info member-role-area" type="text" style="width:100%; border:none;" disabled>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <button class="join-button">JOIN</button>
+              <button class="leave-button">LEAVE</button>
+            </div>
+          </div>
+
+
+
+        </section>
+
+
+
+        <!--Orientation Registration Section-->
+        <section id="orientation-registration-section">
+          <p>THIS IS WHERE ORIENTATION REGISTRATION STUFF GOES.</p>
+        </section>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <!--Firebase SDK-->
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <script src="../js/registerVOC.js"></script>
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <!--Needed for checklist to function-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
