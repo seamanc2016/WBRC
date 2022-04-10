@@ -24,7 +24,7 @@ body{
     transition: margin 0.25s ease-out;
 }
 
-#sidebar-wrapper .sidebar-heading {
+#sidebar-wrapper{
     padding: 0.875rem 1.25rem;
     font-size: 1.2rem;
 }
@@ -66,7 +66,7 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 
 
 .sidebar-heading{
-    font-weight:900;
+    font-weight:700;
 }
 
 #sidebarToggle{
@@ -354,7 +354,7 @@ input.member-info:disabled{
     width:100%
 }
 
-#all-results-area{
+#results-wrapper{
     margin-left:20%;
     margin-right: 20%;
 }
@@ -419,8 +419,35 @@ td.filled-cell:hover{
     color: var(--cc-dark-storm);
 }
 
+#club-stats-wrapper{
+    margin-left:20%;
+    margin-right: 20%;
+}
+
+.stats-heading{
+    width: 10%;
+    background-color: var(--cc-salmon) !important;
+}
+
+.stats-data{
+    background-color: var(--cc-light-purple) !important;
+}
+
+.stats-table{
+    border: var(--cc-dark-storm) 3px solid;
+}
+
+.stat-club-button{
+    background-color: var(--cc-light-storm);
+    color: var(--cc-sand);
+    font-size: smaller;
+    border-radius: 2rem;
+}
+
+
 
 /*Orientation Registration Section* - Should be hidden when page loads*/
 #orientation-registration-section{
     display:none;
 }
+

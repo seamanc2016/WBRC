@@ -91,7 +91,7 @@ function switchInnerPage() {
             visitorRegistrationSection.style.display = "none";
             clubCommRegistrationSection.style.display = "inline";
             orientationRegistrationSection.style.display = "none";
-            innerPageHeading.innerHTML = "CLUB/COMMITTEE REGISTRATION";
+            innerPageHeading.innerHTML = "CLUB REGISTRATION";
             break;
         case "orientation-link":
             visitorRegistrationSection.style.display = "none";
@@ -329,7 +329,7 @@ function saveVisitorCard(callingElement) {
 function editVisitorCard(callingElement) {
 
     //Return if a new element is currently being created
-    if(document.querySelector("#add-visitor-button").hasAttribute("hidden"))
+    if (document.querySelector("#add-visitor-button").hasAttribute("hidden"))
         return alert("You can only edit one visitor card at a time. Please finish doing so and try again.");
 
     var cardToEdit = callingElement.parentElement.parentElement;
@@ -415,40 +415,227 @@ function deleteVisitorCard(element) {
 //*********************************************************************************************************
 //                                    CLUB AND COMMS REGISTRATION FUNCTIONS
 //*********************************************************************************************************
-(function loadClubsandComms(){
+(function loadClubsandComms() {
     auth.onAuthStateChanged(function (user) {
         if (user) {
-            var uid = user.uid;
-            //Get first 10 clubs from database and send them to session storage
-            var cellCount = 0;
-            var allEmptyCells = document.querySelectorAll(".empty-cell");
+
             database.ref("clubs").once('value', (snapshot) => {
                 snapshot.forEach((childSnapshot) => {
-                 //Make search result from template
-                 var copyOfTemplate = document.querySelector(".search-result-template");
-                 copyOfTemplate.removeAttribute("hidden");
-                 allEmptyCells[cellCount].classList.add("filled-cell");
-                 allEmptyCells[cellCount].classList.remove("empty-cell");
-                 allEmptyCells[cellCount].innerHTML = "";
+                    //Get a copy of the search result template and make the appropriate adjustments to it. Keep it hidden at this point.
+                    var copyOfTemplate = document.querySelector(".search-result-template");
+                    copyOfTemplate.classList.add("table-cell");
+                    copyOfTemplate.classList.remove("search-result-template");
 
-                 copyOfTemplate.innerHTML = childSnapshot.val().name;
- 
-                 //Place in appropriate entry
-                 allEmptyCells[cellCount].insertAdjacentHTML("afterbegin", copyOfTemplate.outerHTML);
-                 
-                 //Increment cellcount
-                 cellCount++;
-                
-                 copyOfTemplate.setAttribute("hidden", true);
+                    //Get the snapshot's name and ID and put them in their appropriate positions in the copy.
+                    copyOfTemplate.querySelector(".search-result-button").innerHTML = childSnapshot.val().name;
+                    copyOfTemplate.querySelector(".search-result-button").id = childSnapshot.key;
+                    copyOfTemplate.querySelector(".empty-cell").classList.add("filled-cell");
+                    copyOfTemplate.querySelector(".filled-cell").classList.remove("empty-cell");
+
+                    //Add the copy to the designated area on the page
+                    var allResultsArea = document.querySelector("#all-results-area");
+                    allResultsArea.insertAdjacentHTML("beforeend", copyOfTemplate.outerHTML);
+
+                    //Undo adjustments made to template so that fresh copies can be made
+                    copyOfTemplate.classList.add("search-result-template");
+                    copyOfTemplate.classList.remove("table-cell");
+                    copyOfTemplate.querySelector(".filled-cell").classList.add("empty-cell");
+                    copyOfTemplate.querySelector(".empty-cell").classList.remove("filled-cell");
                 });
-            });
 
-            document.querySelector("#showing-results").innerHTML = `Showing 1 - 10 of ${cellCount} entries`;
-    
+                //Show the first 10 results and set  indexOfLastVisibleResult to 9
+                var allResults = document.querySelectorAll(".table-cell");
+                for (let i = 0; i < allResults.length; i++) {
+                    allResults[i].removeAttribute("hidden");
+                    if (i + 1 == 10)
+                        break;
+                }
+
+                //This is so that the result table looks complete even though there aren't many results to fill it
+                if ((allResults.length % 10) != 0) {
+                    for (let i = 0; i < 10 - (allResults.length % 10); i++) {
+                        var allResultsArea = document.querySelector("#all-results-area");
+                        var emptySearchResultField = document.querySelector(".blank-search-result-template");
+                        emptySearchResultField.classList.add("table-cell");
+                        emptySearchResultField.setAttribute("hidden", true);
+                        allResultsArea.insertAdjacentHTML("beforeend", emptySearchResultField.outerHTML);
+                        emptySearchResultField.classList.remove("table-cell");
+                        emptySearchResultField.setAttribute("hidden", true);
+                    }
+                }
+
+                if (allResults.length <= 10) {
+                    //Hide previous and next buttons since they're unneeded
+                    document.querySelector("#previous-button").setAttribute("hidden", true);
+                    document.querySelector("#next-button").setAttribute("hidden", true);
+
+                    //Update showing results accordingly
+                    document.querySelector("#showing-results").innerHTML = "Showing results 1 - " + allResults.length + " of " + allResults.length;
+                }
+
+                else {
+                    //Update showing results accordingly
+                    document.querySelector("#showing-results").innerHTML = "Showing results 1 - 10 of " + allResults.length;
+                }
+
+                //To account for the range [0,9] of results being shown, create a variable  indexOfLastVisibleResult in SS and set it to 9
+                sessionStorage.setItem(" indexOfLastVisibleResult", 9);
+
+
+
+            });
         } else {
             // No user is signed in.
             window.location.href = "../index.html";
         }
     });
-    
-}());
+
+})();
+
+function getNextResults() {
+    //Show the previous button. This is here to make it reappear when needed.
+    document.querySelector("#previous-button").removeAttribute("hidden");
+
+    //Hide all currently visible results
+    var allResults = document.querySelectorAll(".table-cell");
+    var indexOfLastVisibleResult = parseInt(sessionStorage.getItem(" indexOfLastVisibleResult"));
+
+    for (let i = indexOfLastVisibleResult - 9; i < indexOfLastVisibleResult + 1; i++)
+        allResults[i].setAttribute("hidden", true);
+
+    //Show the next 10 or less results
+    var allTenFieldsFilled = true;
+    for (let i = indexOfLastVisibleResult + 1; i < indexOfLastVisibleResult + 11; i++) {
+        allResults[i].removeAttribute("hidden");
+        if (i + 1 == allResults.length) {
+            allTenFieldsFilled = false;
+            break;
+        }
+    }
+
+    //Updating showing results info
+    document.querySelector("#showing-results").innerHTML = "Showing results " + (indexOfLastVisibleResult + 2) + " - " + (indexOfLastVisibleResult + 11) + " of " + document.querySelectorAll(".filled-cell").length;
+
+    //If there were less than 10 results to show, fill the page with empty slots by unhiding them accordingly
+    if (allTenFieldsFilled == false) {
+        var allEmptyFields = document.querySelectorAll("table-cell");
+        for (let i = 0; i < allEmptyFields.length; i++)
+            allEmptyFields[i].removeAttribute("hidden");
+
+        //Also, hide the next button
+        document.querySelector("#next-button").setAttribute("hidden", true);
+
+        //Updating showing results info
+        document.querySelector("#showing-results").innerHTML = "Showing results " + (indexOfLastVisibleResult + 2) + " - " + document.querySelectorAll(".filled-cell").length + " of " + document.querySelectorAll(".filled-cell").length;
+    }
+
+    //Increment result index by 10 and update SS
+    indexOfLastVisibleResult += 10;
+    sessionStorage.setItem(" indexOfLastVisibleResult", indexOfLastVisibleResult);
+
+}
+
+function getPrevResults() {
+    //Show the next button. This is here to make it reappear when needed.
+    document.querySelector("#next-button").removeAttribute("hidden");
+
+    //Hide all currently visible results, including the empty cells.
+    var allResults = document.querySelectorAll(".table-cell");
+    var indexOfLastVisibleResult = parseInt(sessionStorage.getItem(" indexOfLastVisibleResult"));
+
+    for (let i = indexOfLastVisibleResult - 9; i < indexOfLastVisibleResult + 1; i++)
+        allResults[i].setAttribute("hidden", true);
+
+    //Show the previous 10 results
+    for (let i = indexOfLastVisibleResult - 19; i < indexOfLastVisibleResult - 9; i++)
+        allResults[i].removeAttribute("hidden");
+
+    //Updating showing results info
+    document.querySelector("#showing-results").innerHTML = "Showing results " + (indexOfLastVisibleResult - 18) + " - " + (indexOfLastVisibleResult - 9) + " of " + document.querySelectorAll(".filled-cell").length;
+    //Decrement result index by 10 and update SS
+    indexOfLastVisibleResult -= 10;
+    sessionStorage.setItem(" indexOfLastVisibleResult", indexOfLastVisibleResult);
+
+    //Hide previous button if the first 10 results (or less) are being shown
+    if (indexOfLastVisibleResult <= 10)
+        document.querySelector("#previous-button").setAttribute("hidden", true);
+}
+
+//Maybe have this check value of main activities and description in database
+function findClub() {
+    //Hide all visible clubs
+    var allResults = document.querySelectorAll(".table-cell");
+    var indexOfLastVisibleResult = parseInt(sessionStorage.getItem("indexOfLastVisibleResult"));
+    for (let i = 0; i < allResults.length; i++)
+        allResults[i].setAttribute("hidden", true);
+
+    //Get the value from the search bar and compare it with the results to find matches and only show them
+    var searchBarValue = document.querySelector("#search-bar-field").value.toUpperCase();
+
+    for (let i = 0; i < allResults.length - 7; i++) {
+        var resultValue = allResults[i].querySelector(".search-result-button").innerHTML.toUpperCase()
+        if (resultValue.indexOf(searchBarValue) != -1) //indexOf returns -1 when it fails so if it passes, the resultValue contains the substring searchBarValue
+            allResults[i].removeAttribute("hidden");
+    }
+}
+
+function viewClubInfo(callingElement) {
+    //Query the database to find the appropriate information of club and place that info into the template
+    database.ref("clubs").once('value', (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            //Find the child that matches the button inner HTML
+            if (childSnapshot.key == callingElement.id) {
+                var child = childSnapshot.val();
+                //Put its info into the club info template in the appropriate areas
+                document.querySelector(".club-title").innerHTML = child.name;
+                document.querySelector(".creator-name").innerHTML = child.creatorName;
+                document.querySelector(".creator-email").innerHTML = child.creatorEmail;
+                document.querySelector(".creator-phone").innerHTML = child.creatorPhone;
+                document.querySelector(".club-type").innerHTML = child.type;
+                document.querySelector(".club-activities").innerHTML = child.activities;
+                document.querySelector(".club-member-count").innerHTML = child.memberCount;
+                document.querySelector("#description").innerHTML = child.description; //Adjust size of the description field basedon what's in it
+
+                //Hide default section and show club info template
+                document.querySelector(".default").setAttribute("hidden", true);
+                document.querySelector(".club-info-template").removeAttribute("hidden");
+
+                return;
+            }
+
+        });
+    });
+
+
+
+}
+
+function createNewClub() {
+
+}
+
+function editClub() {
+
+}
+
+function saveClub() {
+
+}
+
+function deleteClub() {
+
+}
+
+function joinClub() {
+
+}
+
+function leaveClub() {
+
+}
+
+function goBackToResults() {
+    //Hide club info template and show default section
+    document.querySelector(".club-info-template").setAttribute("hidden", true);
+    document.querySelector(".default").removeAttribute("hidden");
+}
