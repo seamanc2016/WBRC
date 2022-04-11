@@ -1,0 +1,470 @@
+/*General stuff*/
+:root{
+    --cc-dark-storm: #001B2E;
+    --cc-light-storm: #294C60;
+    --cc-light-purple: #ADB6C4;
+    --cc-sand: #FFEFD3;
+    --cc-salmon: #FFC49B;
+}
+
+body{
+    background-color: var(--cc-sand);
+}
+
+
+
+/*Both Top Navbar and Sidebar*/
+#wrapper {
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper{
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+  
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+}
+
+#top-navbar, #sidebar-wrapper,.sidebar-nav-item{
+    background-color: var(--cc-light-storm);
+    color:var(--cc-salmon);
+    border:solid 1px var(--cc-dark-storm);
+    font-weight: 400;
+
+}
+
+
+.sidebar-heading{
+    font-weight:700;
+}
+
+#sidebarToggle{
+    background-color: var(--cc-salmon);
+    color:var(--cc-dark-storm);
+    border:solid 1px var(--cc-dark-storm);
+    font-weight: 600;
+}
+
+#top-nav-item{
+    color:var(--cc-sand);
+    font-weight: 600;
+}
+#top-nav-item:hover{
+    color: var(--cc-salmon);
+}
+
+#navbar-toggler{
+    background-color: var(--cc-light-purple);
+}
+
+#navbar-menu-button{
+    background-color: var(--cc-salmon);
+    border: var(--cc-dark-storm);
+}
+
+.sidebar-nav-item-selected{
+    background-color: var(--cc-salmon);
+    color: var(--cc-dark-storm);
+    font-weight: 700;
+}
+/*Buttons*/
+#add-visitor-button,.edit-visitor-card-button,
+.delete-visitor-card-button{
+  background-color: var(--cc-dark-storm);
+  color:var(--cc-sand);
+  border:solid 1px var(--cc-sand);
+  font-weight:600;
+  margin-bottom: 10px;
+  padding:1%;
+}
+
+.save-visitor-card-button{
+    background-color: var(--cc-dark-storm);
+    color:var(--cc-sand);
+    border: solid 1px var(--cc-dark-storm);
+    font-weight:600;
+    margin-bottom: 10px;
+    padding:1%;
+    display: none;
+}
+
+#add-visitor-button{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#add-visitor-button:hover,
+.edit-visitor-card-button:hover,.delete-visitor-card-button:hover{
+  background-color: var(--cc-salmon);
+  color:var(--cc-dark-storm);
+  border:solid 1px var(--cc-light-purple);
+}
+
+/*Inner Page Heading*/
+#inner-page-heading{
+    text-align: center;
+    margin:1%;
+}
+/*Inner Nav Bar*/
+#inner-nav{
+    background-color: var(--cc-light-purple);
+    padding-left: 1%;
+    padding-top:0;
+    padding-bottom: 0;
+    border: solid var(--cc-light-storm);
+}
+
+.inner-nav-item{
+    color:var(--cc-sand);
+    font-weight: 600;
+}
+
+.inner-nav-item:hover{
+    color:var(--cc-sand);
+}
+
+.inner-nav-item-selected{
+    color:var(--cc-light-storm);
+    font-weight: 900;
+}
+
+.inner-nav-item-selected:hover{
+    color:var(--cc-light-storm);
+}
+
+/*Page-Content*/
+
+/*Visitor Registration Section*/
+#visitor-reg-content{
+    background-color: var(--cc-light-purple);
+}
+
+/*Visitor Card*/
+.visitor-card{
+    margin-left: auto;
+    margin-right:auto;
+    background-color: var(--cc-salmon);
+    border:solid 5px var(--cc-dark-storm);
+    width:fit-content;
+}
+
+#new-card-area{
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--cc-sand);
+}
+
+.visitor-card-table{
+    border-color: var(--cc-light-purple);  
+}
+
+
+.visitor-card-heading{
+    background-color: var(--cc-dark-storm) !important;
+    color: var(--cc-salmon);
+    text-align: center;
+    font-weight: 900;
+    font-size: x-large;
+}
+
+.saved-visitor-card{
+    background-color: var(--cc-light-purple);
+}
+
+
+input{
+    background-color: var(--cc-sand);
+    width: 100%;
+    font-weight: 700;
+}
+
+input:disabled{
+    background-color: lightgray;
+    font-weight: 700;
+}
+
+#new-card-area > * {
+    margin-top: 20px;
+}
+
+/*Temporarily set to edit Club and Comm section*/
+#visitor-registration-section{
+    display:none;
+}
+
+
+
+/*Club-Comm Registration Section* - Should be hidden when page loads*/
+#club-comm-registration-section{
+    /*display: none;*/
+}
+
+.action-button{
+    background-color: var(--cc-dark-storm);
+    color:var(--cc-sand);
+    border:solid 1px var(--cc-sand);
+    font-weight:600;
+    margin-bottom: 10px;
+    padding:1% 5% 1% 5%;
+}
+
+.action-button:hover{
+    background-color: var(--cc-salmon);
+    color:var(--cc-dark-storm);
+    border:solid 1px var(--cc-light-purple);
+}
+
+.disabled-button{
+    background-color: var(--cc-light-storm);
+    color: var(--cc-sand);
+    border: solid 3px var(--cc-dark-storm);
+    font-weight: 600;
+    opacity: 60%;
+}
+
+.disabled-button:hover{
+    background-color: var(--cc-light-storm) !important;
+    color: var(--cc-sand) !important;
+    border: solid 3px var(--cc-dark-storm);
+    font-weight: 600;
+    opacity: 60%;
+}
+
+.accordion{
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.accordion-button{
+    background-color: var(--cc-light-storm);
+    color: var(--cc-salmon);
+}
+
+.accordion-body{
+    background-color: var(--cc-light-purple);
+}
+
+.club-info-heading
+{   
+    background-color: var(--cc-light-storm) !important;
+    color: var(--cc-salmon);
+
+}
+
+.club-info{
+    background-color: var(--cc-sand) !important;
+    width:100%;
+}
+
+.club-info-table{
+    border-color: var(--cc-dark-storm);
+    table-layout: fixed;
+    text-align: center;
+}
+
+.change-image{
+    /*border: solid 3px var(--cc-light-storm) !important;*/
+    display: none !important;
+}
+
+.join-leave-buttons{
+    align-items: center;
+}
+
+.quote{
+    font-style: italic ;
+    font-weight: bold;
+}
+
+.search-results{
+    margin-right: auto;
+    margin-left: auto;
+    background-color: var(--cc-light-purple);
+}
+
+
+.club-info-wrapper{
+    margin-bottom:5%;
+    background-color: var(--cc-light-purple);
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.club-info-subheading{
+    background-color: var(--cc-salmon) !important;
+}
+.club-name{
+    font-size: xx-large;
+    text-align: center;
+}
+
+.inner-table{
+    margin-left: 12.5%;
+    margin-right: 12.5%;
+    table-layout: fixed;
+    text-align: center;
+}
+
+.first-table-title{
+    font-size: xx-large;
+    font-weight: 700;
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+    height: 100%;
+    border:1px solid var(--cc-dark-storm);
+    resize: none;
+}
+
+textarea:disabled{
+    background-color: var(--cc-sand);
+}
+
+input.member-info{
+    background-color: white;
+    border:dashed 1px var(--cc-dark-storm) !important;
+}
+input.member-info:disabled{
+    background-color: var(--cc-sand);
+    border:none !important;
+}
+
+/*Stuff for new idea*/
+.search-result-button{
+    background-color: var(--cc-light-storm);
+    color:var(--cc-sand);
+    font-weight: 600;
+    padding:6px 0 6px 0;
+    width:100%
+}
+
+#results-wrapper{
+    margin-left:20%;
+    margin-right: 20%;
+}
+
+#search-bar
+{
+    margin:0 20% 15px 20%;
+}
+
+#search-bar-field{
+    background-color: white;
+    width:90%
+}
+
+#search-bar-button,#previous-button,#next-button,#add-club-button{
+    background-color: var(--cc-light-storm);
+    color:var(--cc-sand);
+    border: solid 3px var(--cc-dark-storm);
+    font-weight: 600;
+}
+
+#showing-results{
+    color: var(--cc-dark-storm);
+    text-align: center;
+}
+
+#showing-results-container{
+    margin-top: 15px;
+}
+
+
+td.empty-cell{
+    background-color: var(--cc-light-purple);
+    color:var(--cc-light-purple);
+    border: solid 3px var(--cc-dark-storm);
+}
+
+td.filled-cell{
+    background-color: var(--cc-light-storm);
+    color:var(--cc-salmon);
+    border: solid 3px var(--cc-dark-storm);
+    padding:0;
+}
+
+td.filled-cell:hover{
+    background-color: var(--cc-salmon);
+    color:var(--cc-dark-storm);
+    border: solid 3px var(--cc-dark-storm);
+}
+
+.empty-search-result-button{
+    background-color: var(--cc-light-purple);
+    color:var(--cc-sand);
+    width:auto;
+    border: solid 3px var(--cc-dark-storm);
+    font-weight: 600;
+}
+
+.search-result-button:hover, #search-bar-button:hover,
+#previous-button:hover,#next-button:hover,#add-club-button:hover{
+    background-color: var(--cc-salmon);
+    color: var(--cc-dark-storm);
+}
+
+#club-stats-wrapper{
+    margin-left:20%;
+    margin-right: 20%;
+}
+
+.stats-heading{
+    width: 10%;
+    background-color: var(--cc-salmon) !important;
+}
+
+.stats-data{
+    background-color: var(--cc-light-purple) !important;
+}
+
+.stats-table{
+    border: var(--cc-dark-storm) 3px solid;
+}
+
+.stat-club-tag{
+    background-color: var(--cc-light-storm);
+    color: var(--cc-sand);
+    font-size: smaller;
+    border-radius: 2rem;
+}
+
+
+
+/*Orientation Registration Section* - Should be hidden when page loads*/
+#orientation-registration-section{
+    display:none;
+}
+
