@@ -230,19 +230,35 @@ input:disabled{
     /*display: none;*/
 }
 
-.join-button,.leave-button{
+.action-button{
     background-color: var(--cc-dark-storm);
     color:var(--cc-sand);
     border:solid 1px var(--cc-sand);
     font-weight:600;
     margin-bottom: 10px;
-    padding:1% 10% 1% 10%;
+    padding:1% 5% 1% 5%;
 }
 
-.join-button:hover,.leave-button:hover{
+.action-button:hover{
     background-color: var(--cc-salmon);
     color:var(--cc-dark-storm);
     border:solid 1px var(--cc-light-purple);
+}
+
+.disabled-button{
+    background-color: var(--cc-light-storm);
+    color: var(--cc-sand);
+    border: solid 3px var(--cc-dark-storm);
+    font-weight: 600;
+    opacity: 60%;
+}
+
+.disabled-button:hover{
+    background-color: var(--cc-light-storm) !important;
+    color: var(--cc-sand) !important;
+    border: solid 3px var(--cc-dark-storm);
+    font-weight: 600;
+    opacity: 60%;
 }
 
 .accordion{
@@ -330,6 +346,7 @@ textarea {
     width: 100%;
     height: 100%;
     border:1px solid var(--cc-dark-storm);
+    resize: none;
 }
 
 textarea:disabled{
@@ -437,7 +454,7 @@ td.filled-cell:hover{
     border: var(--cc-dark-storm) 3px solid;
 }
 
-.stat-club-button{
+.stat-club-tag{
     background-color: var(--cc-light-storm);
     color: var(--cc-sand);
     font-size: smaller;

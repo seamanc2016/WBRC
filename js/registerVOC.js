@@ -108,6 +108,10 @@ function switchInnerPage() {
 //Potentially add a new visitor card
 
 function addVisitorCard() {
+    //Return if an existing card is being edited
+    var currentlyEditing = parseInt(sessionStorage.getItem("currentlyEditing"));
+    if (currentlyEditing == 1)
+        return alert("You can only edit one visitor card at a time. Please finish doing so and try again.");
 
     //Hide the add new visitor card button so that only one card can be added at a time. Saving the new card should re-enable it.
     document.querySelector("#add-visitor-button").setAttribute("hidden", true);
@@ -285,6 +289,9 @@ function saveVisitorCard(callingElement) {
                             callingElementCard.querySelector(".delete-visitor-card-button").style.display = "inline";
                             callingElementCard.querySelector(".edit-visitor-card-button").style.display = "inline";
                             callingElementCard.querySelector(".save-visitor-card-button").style.display = "none";
+
+                            //Reset currently editing count
+                            sessionStorage.setItem("currentlyEditing", 0);
                         }
 
                     });
@@ -303,6 +310,9 @@ function saveVisitorCard(callingElement) {
                     dateOut: allFieldsInCardToBeSaved[3].value,
                     purpose: allFieldsInCardToBeSaved[4].value
                 });
+
+                //Reset currently editing count
+                sessionStorage.setItem("currentlyEditing", 0);
             })
 
             //Readd "add new+" button
@@ -328,9 +338,14 @@ function saveVisitorCard(callingElement) {
 //Enable editing of a visitor card
 function editVisitorCard(callingElement) {
 
-    //Return if a new element is currently being created
-    if (document.querySelector("#add-visitor-button").hasAttribute("hidden"))
+    //Return if a new card is currently being created or an existing card is being edited
+    var currentlyEditing = parseInt(sessionStorage.getItem("currentlyEditing"));
+    if (document.querySelector("#add-visitor-button").hasAttribute("hidden") || currentlyEditing == 1)
         return alert("You can only edit one visitor card at a time. Please finish doing so and try again.");
+
+
+    //Set variable in SS to keep track of the number of existing cards being edited
+    sessionStorage.setItem("currentlyEditing", 1);
 
     var cardToEdit = callingElement.parentElement.parentElement;
     var cardToEditInputFields = cardToEdit.querySelectorAll(".visitor-card-info");
@@ -415,11 +430,17 @@ function deleteVisitorCard(element) {
 //*********************************************************************************************************
 //                                    CLUB AND COMMS REGISTRATION FUNCTIONS
 //*********************************************************************************************************
-(function loadClubsandComms() {
+function loadClubsandComms() {
     auth.onAuthStateChanged(function (user) {
         if (user) {
-
+            var uid = user.uid;
+            //Fill the all clubs results area with clubs!
             database.ref("clubs").once('value', (snapshot) => {
+
+                //Clear the area where results are set so there aren't duplications
+                var allResultsArea = document.querySelector("#all-results-area");
+                allResultsArea.innerHTML = "";
+
                 snapshot.forEach((childSnapshot) => {
                     //Get a copy of the search result template and make the appropriate adjustments to it. Keep it hidden at this point.
                     var copyOfTemplate = document.querySelector(".search-result-template");
@@ -433,7 +454,6 @@ function deleteVisitorCard(element) {
                     copyOfTemplate.querySelector(".filled-cell").classList.remove("empty-cell");
 
                     //Add the copy to the designated area on the page
-                    var allResultsArea = document.querySelector("#all-results-area");
                     allResultsArea.insertAdjacentHTML("beforeend", copyOfTemplate.outerHTML);
 
                     //Undo adjustments made to template so that fresh copies can be made
@@ -465,36 +485,99 @@ function deleteVisitorCard(element) {
                 }
 
                 if (allResults.length <= 10) {
-                    //Hide previous and next buttons since they're unneeded
-                    document.querySelector("#previous-button").setAttribute("hidden", true);
-                    document.querySelector("#next-button").setAttribute("hidden", true);
+                    //Disable previous and next buttons since they're unneeded
+                    document.querySelector("#previous-button").setAttribute("disabled", true);
+                    document.querySelector("#previous-button").classList.add("disabled-button");
+                    document.querySelector("#next-button").setAttribute("disabled", true);
+                    document.querySelector("#next-button").classList.add("disabled-button");
 
                     //Update showing results accordingly
                     document.querySelector("#showing-results").innerHTML = "Showing results 1 - " + allResults.length + " of " + allResults.length;
+
+                    //Show all empty fields added
+                    EmptyCellsAdded = allResultsArea.querySelectorAll(".intended-empty");
+                    EmptyCellsAdded.forEach((hiddenCell) => {
+                        hiddenCell.removeAttribute("hidden");
+                    })
                 }
 
                 else {
+
+                    //Disable previous but enable next button
+                    document.querySelector("#previous-button").setAttribute("disabled", true);
+                    document.querySelector("#previous-button").classList.add("disabled-button");
+                    document.querySelector("#next-button").removeAttribute("disabled");
+                    document.querySelector("#next-button").classList.remove("disabled-button");
+
+
                     //Update showing results accordingly
                     document.querySelector("#showing-results").innerHTML = "Showing results 1 - 10 of " + allResults.length;
                 }
 
                 //To account for the range [0,9] of results being shown, create a variable  indexOfLastVisibleResult in SS and set it to 9
                 sessionStorage.setItem(" indexOfLastVisibleResult", 9);
-
-
-
             });
+
+            //Fill Membership and ownership info for clubs
+            updateMembershipsAndOwnerships();
+
         } else {
             // No user is signed in.
             window.location.href = "../index.html";
         }
     });
 
+};
+
+//Self-invoking to load club list on pageload
+(function () {
+    loadClubsandComms();
 })();
 
+function updateMembershipsAndOwnerships() {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            var uid = user.uid;
+            database.ref("users/" + uid + "/clubs").once('value', (snapshot) => {
+
+                if (snapshot.exists()) {
+                    //Getting and prepping positions on memb/owner stats table
+                    var membershipTagArea = document.querySelector("#membership-tag-area");
+                    var ownershipTagArea = document.querySelector("#ownership-tag-area");
+                    membershipTagArea.innerHTML = "";
+                    ownershipTagArea.innerHTML = "";
+
+                    snapshot.forEach((childSnapshot) => {
+                        var childKey = childSnapshot.key;
+                        var childData = childSnapshot.val();
+
+                        //Make a button and add the appropriate attributes and modifications
+                        var newButtonElement = document.createElement("button");
+                        newButtonElement.classList.add("stat-club-tag");
+                        newButtonElement.setAttribute("onclick", "viewClubInfo(this)");
+                        newButtonElement.innerHTML = childData.name;
+                        newButtonElement.id = childKey;
+
+                        //Add it to the right location on the table
+                        if (childData.role == "member")
+                            membershipTagArea.insertAdjacentHTML("beforeend", newButtonElement.outerHTML);
+
+                        else
+                            ownershipTagArea.insertAdjacentHTML("beforeend", newButtonElement.outerHTML);
+                    });
+                }
+            });
+        } else {
+            // No user is signed in.
+            window.location.href = "../index.html";
+        }
+    });
+}
+
 function getNextResults() {
-    //Show the previous button. This is here to make it reappear when needed.
-    document.querySelector("#previous-button").removeAttribute("hidden");
+    //Enable the previous button. This is here to make it reappear when needed.
+    document.querySelector("#previous-button").removeAttribute("disabled");
+    document.querySelector("#previous-button").classList.remove("disabled-button");
 
     //Hide all currently visible results
     var allResults = document.querySelectorAll(".table-cell");
@@ -522,8 +605,9 @@ function getNextResults() {
         for (let i = 0; i < allEmptyFields.length; i++)
             allEmptyFields[i].removeAttribute("hidden");
 
-        //Also, hide the next button
-        document.querySelector("#next-button").setAttribute("hidden", true);
+        //Also, disable the next button
+        document.querySelector("#next-button").setAttribute("disabled", true);
+        document.querySelector("#next-button").classList.add("disabled-button");
 
         //Updating showing results info
         document.querySelector("#showing-results").innerHTML = "Showing results " + (indexOfLastVisibleResult + 2) + " - " + document.querySelectorAll(".filled-cell").length + " of " + document.querySelectorAll(".filled-cell").length;
@@ -536,8 +620,9 @@ function getNextResults() {
 }
 
 function getPrevResults() {
-    //Show the next button. This is here to make it reappear when needed.
-    document.querySelector("#next-button").removeAttribute("hidden");
+    //Enable the next button. This is here to make it reappear when needed.
+    document.querySelector("#next-button").removeAttribute("disabled");
+    document.querySelector("#next-button").classList.remove("disabled-button");
 
     //Hide all currently visible results, including the empty cells.
     var allResults = document.querySelectorAll(".table-cell");
@@ -556,9 +641,13 @@ function getPrevResults() {
     indexOfLastVisibleResult -= 10;
     sessionStorage.setItem(" indexOfLastVisibleResult", indexOfLastVisibleResult);
 
-    //Hide previous button if the first 10 results (or less) are being shown
-    if (indexOfLastVisibleResult <= 10)
-        document.querySelector("#previous-button").setAttribute("hidden", true);
+    //Enable previous button if the first 10 results (or less) are being shown
+    if (indexOfLastVisibleResult <= 10) {
+        document.querySelector("#previous-button").setAttribute("disabled", true);
+        document.querySelector("#previous-button").classList.add("disabled-button");
+
+    }
+
 }
 
 //Maybe have this check value of main activities and description in database
@@ -591,19 +680,76 @@ function viewClubInfo(callingElement) {
                 document.querySelector(".creator-name").innerHTML = child.creatorName;
                 document.querySelector(".creator-email").innerHTML = child.creatorEmail;
                 document.querySelector(".creator-phone").innerHTML = child.creatorPhone;
-                document.querySelector(".club-type").innerHTML = child.type;
+                document.querySelector(".club-schedule").innerHTML = child.schedule;
                 document.querySelector(".club-activities").innerHTML = child.activities;
                 document.querySelector(".club-member-count").innerHTML = child.memberCount;
-                document.querySelector("#description").innerHTML = child.description; //Adjust size of the description field basedon what's in it
-
-                //Hide default section and show club info template
-                document.querySelector(".default").setAttribute("hidden", true);
-                document.querySelector(".club-info-template").removeAttribute("hidden");
+                document.querySelector("#description").value = child.description; //Adjust size of the description field basedon what's in it
 
                 return;
             }
-
         });
+
+
+        //Determining the inital status of the action buttons when viewing club info
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                var uid = user.uid;
+                database.ref("users/" + uid + "/clubs").once('value', (snapshot) => {
+
+                    if (snapshot.exists()) {
+
+                        //Setting initial state of action buttons for clubs that user isn't a member/owner of
+                        document.querySelector(".join-button").removeAttribute("hidden");
+                        document.querySelector(".leave-button").setAttribute("hidden", true);
+                        document.querySelector(".edit-club-button").setAttribute("hidden", true);
+                        document.querySelector(".delete-club-button").setAttribute("hidden", true);
+                        document.querySelector(".save-club-button").setAttribute("hidden", true);
+
+                        snapshot.forEach((childSnapshot) => {
+                            var childKey = childSnapshot.key;
+                            var childData = childSnapshot.val();
+                            if (childKey == callingElement.id) {
+                                switch (childData.role) {
+                                    case "member":
+                                        document.querySelector(".edit-club-button").setAttribute("hidden", true);
+                                        document.querySelector(".delete-club-button").setAttribute("hidden", true);
+                                        document.querySelector(".join-button").setAttribute("hidden", true);
+                                        document.querySelector(".leave-button").removeAttribute("hidden");
+                                        document.querySelector(".save-club-button").setAttribute("hidden", true);
+                                        break;
+                                    case "owner":
+                                        document.querySelector(".join-button").setAttribute("hidden", true);
+                                        document.querySelector(".leave-button").setAttribute("hidden", true);
+                                        document.querySelector(".edit-club-button").removeAttribute("hidden");
+                                        document.querySelector(".delete-club-button").removeAttribute("hidden");
+                                        document.querySelector(".save-club-button").setAttribute("hidden", true);
+                                        break;
+                                }
+                            }
+                        })
+                    }
+
+                })
+
+
+            } else {
+                // User is signed out
+                window.location.href = "../index.html";
+            }
+        });
+
+        //Set the action button IDs equal to the calling element's ID
+        document.querySelector(".join-button").id = callingElement.id;
+        document.querySelector(".leave-button").id = callingElement.id;
+        document.querySelector(".edit-club-button").id = callingElement.id;
+        document.querySelector(".delete-club-button").id = callingElement.id;
+
+        //Hide default section and show club info template
+        setTimeout(() => {
+            document.querySelector(".default").setAttribute("hidden", true);
+            document.querySelector(".club-info-template").removeAttribute("hidden");
+        }, 100)
+
     });
 
 
@@ -611,30 +757,267 @@ function viewClubInfo(callingElement) {
 }
 
 function createNewClub() {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            var uid = user.uid;
+            //Clear the areas that will be seen after this function runs
+            document.querySelector(".club-title-textarea").value = "";
+            document.querySelector(".club-activities-textarea").value = "";
+            document.querySelector(".club-schedule-textarea").value = "";
+            document.querySelector(".club-description-textarea").value = "";
+
+            //Get required info from DB
+            database.ref("users/" + uid).get().then((snapshot) => {
+                if (snapshot.exists()) {
+                    var snapshotData = snapshot.val();
+                    document.querySelector(".creator-name").innerHTML = snapshotData.firstName + " " + snapshotData.lastName;
+                    document.querySelector(".creator-email").innerHTML = snapshotData.email;
+                    document.querySelector(".creator-phone").innerHTML = snapshotData.phone;
+                    document.querySelector(".club-member-count").innerHTML = 1;
+
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+
+            //Set save button ID to empty string
+            document.querySelector(".save-club-button").id = "";
+
+            //Prep visuals to show club creation section after 100 ms
+            setTimeout(() => {
+                //Hide/unhide action buttons as necessary
+                document.querySelector(".join-button").setAttribute("hidden", true);
+                document.querySelector(".leave-button").setAttribute("hidden", true);
+                document.querySelector(".edit-club-button").setAttribute("hidden", true);
+                document.querySelector(".delete-club-button").setAttribute("hidden", true);
+                document.querySelector(".save-club-button").removeAttribute("hidden");
+
+                //Hide/unhide club template elements as necessary
+                document.querySelector(".show-saved-title-div").setAttribute("hidden", true);
+                document.querySelector(".create-title-div").removeAttribute("hidden");
+                document.querySelector(".club-title-textarea").removeAttribute("hidden");
+                document.querySelector(".club-schedule-textarea").removeAttribute("hidden");
+                document.querySelector(".club-activities-textarea").removeAttribute("hidden");
+
+                //Hide default section, show create club template
+                document.querySelector(".default").setAttribute("hidden", true);
+                document.querySelector(".club-info-template").removeAttribute("hidden");
+
+                //Enable fields
+                document.querySelector(".club-title-textarea").removeAttribute("disabled");
+                document.querySelector(".club-schedule-textarea").removeAttribute("disabled");
+                document.querySelector(".club-activities-textarea").removeAttribute("disabled");
+                document.querySelector(".club-description-textarea").removeAttribute("disabled");
+
+            }, 100);
+
+        } else {
+            // User is signed out
+            window.location.href = "../index.html";
+        }
+    });
 
 }
 
-function editClub() {
+function editClub(IDOfClubCurrentlyBeingViewed) {
+    //Will sorta be based on how I fix the club-activities-textarea issue
 
+    //Transfer data from template to textarea field values since viewClubInfo already gets that
+
+    //Switch visuals accordingly
 }
 
-function saveClub() {
+function saveClub(IDOfClubCurrentlyBeingViewed) {
 
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            var uid = user.uid;
+            //The ID not being set (having "" as its value) implies that the saving is being done for a new club
+            if (IDOfClubCurrentlyBeingViewed == "") {
+                //Validate Fields
+                var allTextareasRequiringValidation = document.querySelectorAll(".validate-this-textarea");
+                for (let i = 0; i < allTextareasRequiringValidation.length; i++) {
+                    if (allTextareasRequiringValidation[i].value == "")
+                        return alert("Please fill in all fields before saving your club.");
+                }
+
+                //Get necessary values from each field and store them in DB in club section
+                var newClubRef = database.ref("clubs").push();
+                var newClubKey = newClubRef.key;
+                database.ref("clubs/" + newClubKey).update({
+                    name: document.querySelector(".club-title-textarea").value,
+                    creatorName: document.querySelector(".creator-name").innerHTML,
+                    creatorEmail: document.querySelector(".creator-email").innerHTML,
+                    creatorPhone: document.querySelector(".creator-phone").innerHTML,
+                    schedule: document.querySelector(".club-schedule-textarea").value,
+                    activities: document.querySelector(".club-activities-textarea").value,
+                    memberCount: document.querySelector(".club-member-count").innerHTML,
+                    description: document.querySelector(".club-description-textarea").value
+
+                })
+
+                //Update user club ownership in their club section of DB
+                database.ref("users/" + uid + "/clubs/" + newClubKey).update({
+                    name: document.querySelector(".club-title-textarea").value,
+                    role: "owner"
+                })
+
+            }
+
+            //This will run when the ID is set (having something other than "" as its value), meaning that the saving is being done to an existing element
+            else {
+                database.ref("clubs/" + IDOfClubCurrentlyBeingViewed).update({
+                    name: document.querySelector(".club-title-textarea").value,
+                    creatorName: document.querySelector(".creator-name").innerHTML,
+                    creatorEmail: document.querySelector(".creator-email").innerHTML,
+                    creatorPhone: document.querySelector(".creator-phone").innerHTML,
+                    schedule: document.querySelector(".club-schedule-textarea").value,
+                    activities: document.querySelector(".club-activities-textarea").value,
+                    memberCount: document.querySelector(".club-member-count").innerHTML,
+                    description: document.querySelector(".club-description-textarea").value
+                });
+            }
+
+
+            //Update club list and ownership stats
+            loadClubsandComms();
+            updateMembershipsAndOwnerships();
+
+            //Move Visuals back logically
+            setTimeout(() => {
+                //Hide/unhide action buttons as necessary
+                document.querySelector(".join-button").setAttribute("hidden", true);
+                document.querySelector(".leave-button").setAttribute("hidden", true);
+                document.querySelector(".edit-club-button").removeAttribute("hidden");
+                document.querySelector(".delete-club-button").removeAttribute("hidden");
+                document.querySelector(".save-club-button").setAttribute("hidden", true);
+
+                //Hide/unhide club template elements as necessary
+                document.querySelector(".show-saved-title-div").removeAttribute("hidden");
+                document.querySelector(".create-title-div").setAttribute("hidden", true);
+                document.querySelector(".club-title-textarea").setAttribute("hidden", true);
+                document.querySelector(".club-schedule-textarea").setAttribute("hidden", true);
+                document.querySelector(".club-activities-textarea").setAttribute("hidden", true);
+
+                //Show default section, hide create club template
+                document.querySelector(".default").removeAttribute("hidden");
+                document.querySelector(".club-info-template").setAttribute("hidden", true);
+
+                //Disable fields
+                document.querySelector(".club-title-textarea").setAttribute("disabled", true);
+                document.querySelector(".club-schedule-textarea").setAttribute("disabled", true);
+                document.querySelector(".club-activities-textarea").setAttribute("disabled", true);
+                document.querySelector(".club-description-textarea").setAttribute("disabled", true);
+
+            }, 100);
+
+        } else {
+            // User is signed out
+            window.location.href = "../index.html";
+        }
+    });
 }
 
-function deleteClub() {
+function deleteClub(IDOfClubCurrentlyBeingViewed) {
 
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            var uid = user.uid;
+            //Delete club from  public clublist
+            database.ref("clubs/" + IDOfClubCurrentlyBeingViewed).remove();
+
+            //Delete club from user clublist
+            database.ref("users/" + uid + "/clubs/" + IDOfClubCurrentlyBeingViewed).remove();
+
+            //Update club list and ownership stats
+            loadClubsandComms();
+            updateMembershipsAndOwnerships();
+
+            //Move Visuals back logically
+            setTimeout(() => {
+                //Show default section, hide create club template
+                document.querySelector(".default").removeAttribute("hidden");
+                document.querySelector(".club-info-template").setAttribute("hidden", true);
+            }, 100);
+
+
+        } else {
+            // User is signed out
+            window.location.href = "../index.html";
+        }
+    });
 }
 
-function joinClub() {
+function joinClub(IDOfClubCurrentlyBeingViewed) {
 
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            //Add club to the user's list of clubs
+            var uid = user.uid;
+            database.ref("users/" + uid + "/clubs/" + IDOfClubCurrentlyBeingViewed).update({
+                name: document.querySelector(".club-title").innerHTML,
+                role: "member"
+            })
+
+            //Increment club member count by 1 in DB
+            database.ref("clubs/" + IDOfClubCurrentlyBeingViewed).update({
+                memberCount: parseInt(document.querySelector(".club-member-count").innerHTML) + 1 //Not a good concurrent solution, use array instead
+            })
+
+            //Hide join club button and show leave club button
+            document.querySelector(".join-button").setAttribute("hidden", true);
+            document.querySelector(".leave-button").removeAttribute("hidden");
+
+            //Update Memberships and Ownerships
+            updateMembershipsAndOwnerships();
+
+        } else {
+            // User is signed out
+            window.location.href = "../index.html";
+        }
+    });
 }
 
-function leaveClub() {
+function leaveClub(IDOfClubCurrentlyBeingViewed) {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            var uid = user.uid;
+            //Remove club from the user's list of clubs
+            database.ref("users/" + uid + "/clubs/" + IDOfClubCurrentlyBeingViewed).remove();
 
+            //Decrement club member count by 1 in DB
+            database.ref("clubs/" + IDOfClubCurrentlyBeingViewed).update({
+                memberCount: parseInt(document.querySelector(".club-member-count").innerHTML) - 1 //Not a good concurrent solution, use array instead
+            })
+
+            //Hide leave club button and show join club button
+            document.querySelector(".leave-button").setAttribute("hidden", true);
+            document.querySelector(".join-button").removeAttribute("hidden");
+
+            //Update Memberships and Ownerships
+            updateMembershipsAndOwnerships();
+
+        } else {
+            // User is signed out
+            window.location.href = "../index.html";
+        }
+    });
 }
 
 function goBackToResults() {
+
+    //Disable textareas if going back from a club info screen that's in the middle of being edited
+    var allTextareasRequiringValidation = document.querySelectorAll(".validate-this-textarea");
+    for (let i = 0; i < allTextareasRequiringValidation.length; i++) {
+        allTextareasRequiringValidation[i].setAttribute("disabled", true);
+    }
+
+    //Hide/unhide club template elements as necessary
+    document.querySelector(".show-saved-title-div").removeAttribute("hidden");
+    document.querySelector(".create-title-div").setAttribute("hidden", true);
+
     //Hide club info template and show default section
     document.querySelector(".club-info-template").setAttribute("hidden", true);
     document.querySelector(".default").removeAttribute("hidden");
