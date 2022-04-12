@@ -47,7 +47,9 @@
           <a class="navbar-brand inner-nav-item inner-nav-item-selected" id="visitor-link" href="#">Visitor
             Registration</a>
           <a class="navbar-brand inner-nav-item" id="club-comm-link" href="#">Club Registration</a>
+          <!--
           <a class="navbar-brand inner-nav-item" id="orientation-link" href="#">Orientation Registration</a>
+          -->
         </nav>
       </div>
 
@@ -120,7 +122,7 @@
 
         <!--Club/Committee Registration Section-->
         <section id="club-comm-registration-section">
-          <div class="default" hidden>
+          <div class="default">
 
             <h3 style="text-align:center; margin-top: 5px;">ALL CLUBS</h3>
 
@@ -201,7 +203,7 @@
 
 
           <!--View Club Info Template-->
-          <div class="club-info-wrapper club-info-template">
+          <div class="club-info-wrapper club-info-template" hidden>
 
             <br>
             <div class="inner-table show-saved-title-div"> <!--Not hidden by default-->
@@ -268,8 +270,8 @@
             <div class="inner-table">
               <div class="club-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a description about your club. Character limit is 200.">Description</div>
               <label for="description" hidden></label>
-              <textarea id="description" class=" validate-this-textarea club-description-textarea" placeholder="Enter a description. Character limit is 200."
-                title="Enter a description about your club. Character limit is 200."
+              <textarea id="description" class=" validate-this-textarea club-description-textarea" placeholder="Enter a description."
+                title="Enter a description about your club."
                 name="description-textarea" disabled></textarea>
               <!--Get description from DB upon club info viewing-->
             </div>
@@ -290,10 +292,11 @@
 
 
 
-        <!--Orientation Registration Section-->
+        <!--Orientation Registration Section
         <section id="orientation-registration-section">
           <p>THIS IS WHERE ORIENTATION REGISTRATION STUFF GOES.</p>
         </section>
+        -->
       </div>
 
     </div>

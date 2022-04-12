@@ -65,7 +65,7 @@ function logout() {
 //Visual Stuff
 document.getElementById("visitor-link").addEventListener("click", switchInnerPage);
 document.getElementById("club-comm-link").addEventListener("click", switchInnerPage);
-document.getElementById("orientation-link").addEventListener("click", switchInnerPage);
+//document.getElementById("orientation-link").addEventListener("click", switchInnerPage);
 
 function switchInnerPage() {
 
@@ -77,33 +77,39 @@ function switchInnerPage() {
     //In ~this~ case, this represents the nav link element that called switchInnerPage() . Will help decide which inner page to show.
     var visitorRegistrationSection = document.getElementById("visitor-registration-section");
     var clubCommRegistrationSection = document.getElementById("club-comm-registration-section");
-    var orientationRegistrationSection = document.getElementById("orientation-registration-section");
+    //var orientationRegistrationSection = document.getElementById("orientation-registration-section");
     var innerPageHeading = document.getElementById("inner-page-heading");
 
     switch (this.id) {
         case "visitor-link":
             visitorRegistrationSection.style.display = "inline";
             clubCommRegistrationSection.style.display = "none";
-            orientationRegistrationSection.style.display = "none";
+            //orientationRegistrationSection.style.display = "none";
             innerPageHeading.innerHTML = "VISITOR REGISTRATION";
             break;
         case "club-comm-link":
             visitorRegistrationSection.style.display = "none";
             clubCommRegistrationSection.style.display = "inline";
-            orientationRegistrationSection.style.display = "none";
+            //orientationRegistrationSection.style.display = "none";
             innerPageHeading.innerHTML = "CLUB REGISTRATION";
             break;
-        case "orientation-link":
-            visitorRegistrationSection.style.display = "none";
-            clubCommRegistrationSection.style.display = "none";
-            orientationRegistrationSection.style.display = "inline";
-            innerPageHeading.innerHTML = "ORIENTATION REGISTRATION";
-            break;
+        // case "orientation-link":
+        //     visitorRegistrationSection.style.display = "none";
+        //     clubCommRegistrationSection.style.display = "none";
+        //     orientationRegistrationSection.style.display = "inline";
+        //     innerPageHeading.innerHTML = "ORIENTATION REGISTRATION";
+        //     break;
     }
 
     //Select the right nav item
     this.classList.add("inner-nav-item-selected");
 }
+
+//Slight delay to load stuff in
+// document.querySelector("#visitor-registration-section").setAttribute("hidden",true);
+// setTimeout(()=>{
+//   document.querySelector("#visitor-registration-section").removeAttribute("hidden");
+// }, 400);
 
 //Potentially add a new visitor card
 
@@ -539,11 +545,10 @@ function updateMembershipsAndOwnerships() {
         if (user) {
             var uid = user.uid;
             database.ref("users/" + uid + "/clubs").once('value', (snapshot) => {
-
+                var membershipTagArea = document.querySelector("#membership-tag-area");
+                var ownershipTagArea = document.querySelector("#ownership-tag-area");
                 if (snapshot.exists()) {
                     //Getting and prepping positions on memb/owner stats table
-                    var membershipTagArea = document.querySelector("#membership-tag-area");
-                    var ownershipTagArea = document.querySelector("#ownership-tag-area");
                     membershipTagArea.innerHTML = "";
                     ownershipTagArea.innerHTML = "";
 
@@ -565,6 +570,11 @@ function updateMembershipsAndOwnerships() {
                         else
                             ownershipTagArea.insertAdjacentHTML("beforeend", newButtonElement.outerHTML);
                     });
+                }
+
+                else{
+                    membershipTagArea.innerHTML = "You are not registered in any clubs.";
+                    ownershipTagArea.innerHTML = "You have not created any clubs.";
                 }
             });
         } else {
@@ -680,8 +690,17 @@ function viewClubInfo(callingElement) {
                 document.querySelector(".creator-name").innerHTML = child.creatorName;
                 document.querySelector(".creator-email").innerHTML = child.creatorEmail;
                 document.querySelector(".creator-phone").innerHTML = child.creatorPhone;
+
+                var clubScheduleTextarea = document.querySelector(".club-schedule-textarea");
+                clubScheduleTextarea.setAttribute("hidden", true);
                 document.querySelector(".club-schedule").innerHTML = child.schedule;
-                document.querySelector(".club-activities").innerHTML = child.activities;
+                document.querySelector(".club-schedule").insertAdjacentHTML("beforeend", clubScheduleTextarea.outerHTML);
+
+                var clubActivitiesTextarea = document.querySelector(".club-activities-textarea");
+                clubActivitiesTextarea.setAttribute("hidden", true);
+                document.querySelector(".club-activities").innerHTML = child.schedule;
+                document.querySelector(".club-activities").insertAdjacentHTML("beforeend", clubActivitiesTextarea.outerHTML);
+
                 document.querySelector(".club-member-count").innerHTML = child.memberCount;
                 document.querySelector("#description").value = child.description; //Adjust size of the description field basedon what's in it
 
@@ -761,10 +780,19 @@ function createNewClub() {
         if (user) {
             var uid = user.uid;
             //Clear the areas that will be seen after this function runs
+            var clubScheduleTextarea = document.querySelector(".club-schedule-textarea");
+            document.querySelector(".club-schedule").innerHTML = "";
+            document.querySelector(".club-schedule").insertAdjacentHTML("beforeend", clubScheduleTextarea.outerHTML);
+
+            var clubActivitiesTextarea = document.querySelector(".club-activities-textarea");
+            document.querySelector(".club-activities").innerHTML = "";
+            document.querySelector(".club-activities").insertAdjacentHTML("beforeend", clubActivitiesTextarea.outerHTML);
+
             document.querySelector(".club-title-textarea").value = "";
             document.querySelector(".club-activities-textarea").value = "";
             document.querySelector(".club-schedule-textarea").value = "";
             document.querySelector(".club-description-textarea").value = "";
+
 
             //Get required info from DB
             database.ref("users/" + uid).get().then((snapshot) => {
@@ -822,11 +850,72 @@ function createNewClub() {
 }
 
 function editClub(IDOfClubCurrentlyBeingViewed) {
-    //Will sorta be based on how I fix the club-activities-textarea issue
 
-    //Transfer data from template to textarea field values since viewClubInfo already gets that
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            var uid = user.uid;
+            //Clearing areas as needed
+            var clubScheduleTextarea = document.querySelector(".club-schedule-textarea");
+            document.querySelector(".club-schedule").innerHTML = "";
+            document.querySelector(".club-schedule").insertAdjacentHTML("beforeend", clubScheduleTextarea.outerHTML);
 
-    //Switch visuals accordingly
+            var clubActivitiesTextarea = document.querySelector(".club-activities-textarea");
+            document.querySelector(".club-activities").innerHTML = "";
+            document.querySelector(".club-activities").insertAdjacentHTML("beforeend", clubActivitiesTextarea.outerHTML);
+
+            //Transfer data from DB to textareas
+            database.ref('clubs/' + IDOfClubCurrentlyBeingViewed).once('value').then((snapshot) => {
+                var snapshotData = snapshot.val();
+                document.querySelector(".club-title-textarea").value = snapshotData.name;
+                document.querySelector(".club-schedule-textarea").value = snapshotData.schedule;
+                document.querySelector(".club-activities-textarea").value = snapshotData.activities;
+            }).then(() => {
+
+                //Enable the textareas
+                var allTextareas = document.querySelectorAll(".validate-this-textarea");
+                for (let i = 0; i < allTextareas.length; i++)
+                    allTextareas[i].removeAttribute("disabled");
+
+                //Hide/unhide as necessary
+                document.querySelector(".show-saved-title-div").setAttribute("hidden", true);
+                document.querySelector(".create-title-div").removeAttribute("hidden");
+                document.querySelector(".club-title-textarea").removeAttribute("hidden");
+                document.querySelector(".club-schedule-textarea").removeAttribute("hidden");
+                document.querySelector(".club-activities-textarea").removeAttribute("hidden");
+
+                //Hide action buttons
+                document.querySelector(".edit-club-button").setAttribute("hidden", true);
+                document.querySelector(".delete-club-button").setAttribute("hidden", true);
+                document.querySelector(".save-club-button").removeAttribute("hidden");
+
+                //Pass ID to Save Button
+                document.querySelector(".save-club-button").id = IDOfClubCurrentlyBeingViewed;
+            })
+
+            //Switch visuals accordingly
+            // setTimeout(()=>{
+
+            //     //Enable the textareas
+            //     var allTextareas = document.querySelectorAll(".validate-this-textarea");
+            //     for (let i = 0; i < allTextareas.length; i++) 
+            //         allTextareas[i].removeAttribute("disabled");
+
+            //     //Hide/unhide as necessary
+            //     document.querySelector(".show-saved-title-div").setAttribute("hidden", true);
+            //     document.querySelector(".create-title-div").removeAttribute("hidden");
+            //     document.querySelector(".club-title-textarea").removeAttribute("hidden");
+            //     document.querySelector(".club-schedule-textarea").removeAttribute("hidden");
+            //     document.querySelector(".club-activities-textarea").removeAttribute("hidden");
+
+            // }, 100);
+
+
+        } else {
+            // User is signed out
+            window.location.href = "../index.html";
+        }
+    });
+
 }
 
 function saveClub(IDOfClubCurrentlyBeingViewed) {
@@ -878,6 +967,12 @@ function saveClub(IDOfClubCurrentlyBeingViewed) {
                     memberCount: document.querySelector(".club-member-count").innerHTML,
                     description: document.querySelector(".club-description-textarea").value
                 });
+
+                //Update user club ownership in their club section of DB
+                database.ref("users/" + uid + "/clubs/" + IDOfClubCurrentlyBeingViewed).update({
+                    name: document.querySelector(".club-title-textarea").value,
+                    role: "owner"
+                })
             }
 
 
@@ -1022,3 +1117,4 @@ function goBackToResults() {
     document.querySelector(".club-info-template").setAttribute("hidden", true);
     document.querySelector(".default").removeAttribute("hidden");
 }
+

@@ -15,8 +15,15 @@ window.addEventListener('DOMContentLoaded', event => {
     });
   }
 
+
+
 });
 
+//Slight delay to load stuff in
+document.querySelector(".page-content").setAttribute("hidden",true);
+setTimeout(()=>{
+  document.querySelector(".page-content").removeAttribute("hidden");
+}, 300);
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {

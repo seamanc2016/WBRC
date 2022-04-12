@@ -456,7 +456,7 @@ src="https://smtpjs.com/v3/smtp.js";
 function sendEmail() {
     
     //for testing. Delete this when no longer needed.
-    userEmail = "colchalmoderator@gmail.com";
+   // userEmail = "colchalmoderator@gmail.com";
     
     
       Email.send({

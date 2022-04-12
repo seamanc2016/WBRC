@@ -11458,7 +11458,7 @@ p{
 
 .bg {
         background-color: var(--cc-sand);
-        padding: 50px;
+        padding: 10px;
         color: var(--cc-dark-storm);
         display: flex;
         align-items: center;
