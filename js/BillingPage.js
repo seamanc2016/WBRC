@@ -472,3 +472,25 @@ function sendEmail() {
           alert("mail sent successfully")
         });
 }
+
+/*
+function displayPage() {
+    
+    setTimeout( () => { 
+    document.getElementById("invoiceWrapper").style.display = "inline";
+    }, 500)
+   
+}
+*/
+
+
+    
+    
+(function displayPage() {
+ 
+   setTimeout( () => { 
+    document.getElementById("invoiceWrapper").style.display = "inline";
+    }, 500)
+}());
+
+
