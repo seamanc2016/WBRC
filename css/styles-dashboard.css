@@ -11326,13 +11326,22 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 }
 
  
-.tiles {
+.tiles1 {
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 520px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
     
-    gap: 20px;
+    gap: 50px;
+}
+
+.tiles2 {
+    padding-top: 40px;
+    margin: 0 auto;
+    max-width: 825px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
+    gap: 50px;
 }
 
 .item {
