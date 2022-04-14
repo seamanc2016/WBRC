@@ -698,7 +698,7 @@ function viewClubInfo(callingElement) {
 
                 var clubActivitiesTextarea = document.querySelector(".club-activities-textarea");
                 clubActivitiesTextarea.setAttribute("hidden", true);
-                document.querySelector(".club-activities").innerHTML = child.schedule;
+                document.querySelector(".club-activities").innerHTML = child.activities;
                 document.querySelector(".club-activities").insertAdjacentHTML("beforeend", clubActivitiesTextarea.outerHTML);
 
                 document.querySelector(".club-member-count").innerHTML = child.memberCount;

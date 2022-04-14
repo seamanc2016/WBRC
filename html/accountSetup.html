@@ -242,7 +242,7 @@
         </ol>
         <br><br>
         <div class="d-flex justify-content-center">
-                <input type="checkbox" id="coc-agreement" name="coc-agreement" value="agree">
+                <input type="checkbox" onclick="agreementStatusCheck()" id="coc-agreement" name="coc-agreement" value="agree">
                 <label id="agree-label" for="coc-agreement"> I have read and agree to the terms listed above.</label><br>
         </div>
 
@@ -255,8 +255,8 @@
         <h2 class="inner-subtext">You've completed all necessary steps. We are pleased to welcome you as a new member to the WBRC Family! Hope you enjoy your stay. </h2>
     </section>
 
-    <button class="button" id="prev">&larr; Previous</div>
-    <button class="button" id="next">Next &rarr;</div>
+    <button class="button" id="prev" onclick="prevControl()">&larr; Previous</div>
+    <button class="button" id="next" onclick="nextControl()">Next &rarr;</div>
     <button class="button" id="submit">Continue</div>
 
     <!-- "Multistep Form" Code Ends Here -->
