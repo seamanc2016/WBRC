@@ -14146,8 +14146,8 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   font-weight: 700;
 }
 /*Buttons*/
-#add-visitor-button,.edit-visitor-card-button,
-.delete-visitor-card-button{
+#add-forum-button,.edit-forum-card-button,
+.delete-forum-card-button{
 background-color: var(--cc-dark-storm);
 color:var(--cc-sand);
 border:solid 1px var(--cc-sand);
@@ -14156,7 +14156,7 @@ margin-bottom: 10px;
 padding:1%;
 }
 
-.save-visitor-card-button{
+.save-forum-card-button{
   background-color: var(--cc-dark-storm);
   color:var(--cc-sand);
   border: solid 1px var(--cc-dark-storm);
@@ -14166,13 +14166,13 @@ padding:1%;
   display: none;
 }
 
-#add-visitor-button{
+#add-forum-button{
   margin-top: 20px;
   margin-bottom: 30px;
 }
 
-#add-visitor-button:hover,
-.edit-visitor-card-button:hover,.delete-visitor-card-button:hover{
+#add-forum-button:hover,
+.edit-forum-card-button:hover,.delete-forum-card-button:hover{
 background-color: var(--cc-salmon);
 color:var(--cc-dark-storm);
 border:solid 1px var(--cc-light-purple);
@@ -14212,18 +14212,26 @@ border:solid 1px var(--cc-light-purple);
 
 /*Page-Content*/
 
-/*Visitor Registration Section*/
-#visitor-reg-content{
+/*forum Registration Section*/
+#forum-reg-content{
   background-color: var(--cc-light-purple);
 }
 
-/*Visitor Card*/
-.visitor-card{
+/*forum Card*/
+.forum-card{
   margin-left: auto;
   margin-right:auto;
   background-color: var(--cc-salmon);
   border:solid 5px var(--cc-dark-storm);
   width:fit-content;
+}
+
+.forum-card-comment{
+  margin-left: auto;
+  margin-right:auto;
+  background-color: var(--cc-salmon);
+  border:solid 5px var(--cc-dark-storm);
+  width:auto;
 }
 
 #new-card-area{
@@ -14232,12 +14240,12 @@ border:solid 1px var(--cc-light-purple);
   background-color: var(--cc-sand);
 }
 
-.visitor-card-table{
+.forum-card-table{
   border-color: var(--cc-light-purple);  
 }
 
 
-.visitor-card-heading{
+.forum-card-heading{
   background-color: var(--cc-dark-storm) !important;
   color: var(--cc-salmon);
   text-align: center;
@@ -14245,7 +14253,7 @@ border:solid 1px var(--cc-light-purple);
   font-size: x-large;
 }
 
-.saved-visitor-card{
+.saved-forum-card{
   background-color: var(--cc-light-purple);
 }
 
@@ -14265,15 +14273,15 @@ input:disabled{
   margin-top: 20px;
 }
 
-/*Temporarily set to edit Club and Comm section*/
-#visitor-registration-section{
+/*Temporarily set to edit post and Comm section*/
+#forum-registration-section{
   /*display:none;*/
 }
 
 
 
-/*Club-Comm Registration Section* - Should be hidden when page loads*/
-#club-comm-registration-section{
+/*post-Comm Registration Section* - Should be hidden when page loads*/
+#post-comm-registration-section{
   display: none;
 }
 
@@ -14322,19 +14330,19 @@ input:disabled{
   background-color: var(--cc-light-purple);
 }
 
-.club-info-heading
+.post-info-heading
 {   
   background-color: var(--cc-light-storm) !important;
   color: var(--cc-salmon);
 
 }
 
-.club-info{
+.post-info{
   background-color: var(--cc-sand) !important;
   width:100%;
 }
 
-.club-info-table{
+.post-info-table{
   border-color: var(--cc-dark-storm);
   table-layout: fixed;
   text-align: center;
@@ -14361,17 +14369,15 @@ input:disabled{
 }
 
 
-.club-info-wrapper{
+.post-info-wrapper{
   margin-bottom:5%;
   background-color: var(--cc-light-purple);
-  margin-left: 15%;
-  margin-right: 15%;
 }
 
-.club-info-subheading{
+.post-info-subheading{
   background-color: var(--cc-salmon) !important;
 }
-.club-name{
+.post-name{
   font-size: xx-large;
   text-align: center;
 }
@@ -14432,7 +14438,7 @@ input.member-info:disabled{
   width:90%
 }
 
-#search-bar-button,#previous-button,#next-button,#add-club-button{
+#search-bar-button,#previous-button,#next-button,#add-post-button{
   background-color: var(--cc-light-storm);
   color:var(--cc-sand);
   border: solid 3px var(--cc-dark-storm);
@@ -14477,12 +14483,12 @@ td.filled-cell:hover{
 }
 
 .search-result-button:hover, #search-bar-button:hover,
-#previous-button:hover,#next-button:hover,#add-club-button:hover{
+#previous-button:hover,#next-button:hover,#add-post-button:hover{
   background-color: var(--cc-salmon);
   color: var(--cc-dark-storm);
 }
 
-#club-stats-wrapper{
+#post-stats-wrapper{
   margin-left:20%;
   margin-right: 20%;
 }
@@ -14500,7 +14506,7 @@ td.filled-cell:hover{
   border: var(--cc-dark-storm) 3px solid;
 }
 
-.stat-club-tag{
+.stat-post-tag{
   background-color: var(--cc-light-storm);
   color: var(--cc-sand);
   font-size: smaller;
@@ -14511,7 +14517,7 @@ td.filled-cell:hover{
   padding-bottom: 17.5%;
 }
 
-.club-title-textarea{
+.post-title-textarea{
   margin-bottom:10px;
 }
 

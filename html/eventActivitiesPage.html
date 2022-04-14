@@ -82,9 +82,9 @@
                         </div>
                         <div class="create__section" id="date_input" style="display: none;">
                             <label class="create__label" for="category">Date of Event</label>
-                            <input id="create_doe" class="visitor-card-info" type="date"/>
+                            <input id="create_doe" class="forum-card-info" type="date"/>
                             <label class="create__label" for="category">Date of Event</label>
-                            <input id="create_toe" class="visitor-card-info" type="time"/>
+                            <input id="create_toe" class="forum-card-info" type="time"/>
                         </div>
 
                     </div>
@@ -121,9 +121,9 @@
                     </div>
                     <div class="create__btn-cansel btn" style="color: #ffc49b;" onclick="showCreateTile()">create post</div>
                 </div>
-                <div class="col-lg-8 light-purple-bg visitor-card event_card_template saved-visitor-card"
+                <div class="col-lg-8 light-purple-bg forum-card event_card_template saved-forum-card"
                     style="margin-top:10px; margin-bottom:10px;" hidden>
-                    <table class="table table-bordered visitor-card-table">
+                    <table class="table table-bordered forum-card-table">
                     <tbody>
 
                         <tr>
@@ -159,9 +159,9 @@
                     </table>
 
                 </div>
-                <div class="col-lg-8 light-purple-bg visitor-card issue_card_template saved-visitor-card"
+                <div class="col-lg-8 light-purple-bg forum-card issue_card_template saved-forum-card"
                     style="margin-top:10px; margin-bottom:10px;" hidden>
-                    <table class="table table-bordered visitor-card-table">
+                    <table class="table table-bordered forum-card-table">
                     <tbody>
 
                         <tr>
@@ -197,9 +197,9 @@
                     </table>
 
                 </div>
-                <div class="col-lg-8 light-purple-bg visitor-card discussion_card_template saved-visitor-card"
+                <div class="col-lg-8 light-purple-bg forum-card discussion_card_template saved-forum-card"
                     style="margin-top:10px; margin-bottom:10px;" hidden>
-                    <table class="table table-bordered visitor-card-table">
+                    <table class="table table-bordered forum-card-table">
                     <tbody>
 
                         <tr>
@@ -230,8 +230,8 @@
                 <!-- Page content Goes Here-->
                 <div id="page-content">
 
-                    <!--Visitor Registration Section-->
-                    <section id="visitor-registration-section">
+                    <!--forum Registration Section-->
+                    <section id="forum-registration-section">
                         <div id="new-card-area"></div>
                     </section>
                 </div>
@@ -239,177 +239,200 @@
 
 
             <!--Post Exapnsion-->
-            <div class="club-info-wrapper event-info-template" hidden>
+            <div class="post-info-wrapper event-info-template" hidden>
 
                 <br>
                 <div class="inner-table show-saved-title-div"> <!--Not hidden by default-->
-                  <div class="first-table-title club-info-heading club-title">
-                    <!--Get Club Title from DB-->
+                  <div class="first-table-title post-info-heading post-title">
+                    <!--Get post Title from DB-->
                   </div>
                 </div>
                 <br>
     
                 <div class="inner-table create-title-div" hidden >
-                  <div class="club-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a cool club title! Character limit is 20.">Club Title</div>
+                  <div class="post-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a cool post title! Character limit is 20.">post Title</div>
                   <label for="description" hidden></label>
-                  <textarea class="validate-this-textarea club-title-textarea" maxlength="20" placeholder="Enter a cool club title! Character limit is 20."
-                    title="Enter a description about your club. Character limit is 20."
-                    name="club-title-textarea" disabled></textarea>
+                  <textarea class="validate-this-textarea post-title-textarea" maxlength="20" placeholder="Enter a cool post title! Character limit is 20."
+                    title="Enter a description about your post. Character limit is 20."
+                    name="post-title-textarea" disabled></textarea>
                   <!--Get title from user-->
                 </div>
     
                 <div class="inner-table" style="overflow-x: auto;">
-                  <div class="club-info-heading" style="padding: 10px; font-weight: 700;"> Creator</div>
-                  <table class="table table-bordered club-info-table">
+                  <div class="post-info-heading" style="padding: 10px; font-weight: 700;"> Creator</div>
+                  <table class="table table-bordered post-info-table">
                     <tr>
-                      <th class="club-info-subheading">Name</th>
-                      <th class="club-info-subheading">Date of Event</th>
-                      <th class="club-info-subheading">Time of Event</th>
+                      <th class="post-info-subheading">Name</th>
+                      <th class="post-info-subheading">Date of Event</th>
+                      <th class="post-info-subheading">Time of Event</th>
                     </tr>
                     <tr>
-                      <td class="club-info creator-name">
-                        <!--Get Full Name from DB upon new club creation--> 
+                      <td class="post-info creator-name">
+                        <!--Get Full Name from DB upon new post creation--> 
                       </td>
-                      <td class="club-info creator-doe">
-                        <!--Get Email from DB upon new club creation-->
+                      <td class="post-info creator-doe">
+                        <!--Get Email from DB upon new post creation-->
                       </td>
-                      <td class="club-info creator-toe">
-                        <!--Get Phone from DB upon new club creation-->
+                      <td class="post-info creator-toe">
+                        <!--Get Phone from DB upon new post creation-->
                       </td>
                     </tr>
                   </table>
                 </div>
                 <div class="inner-table">
-                  <div class="club-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a description about your club. Character limit is 200.">Description</div>
+                  <div class="post-info-heading" style="padding: 10px; font-weight: 700;" title="">Description</div>
                   <label for="description" hidden></label>
-                  <textarea id="description" class=" validate-this-textarea club-description-textarea" placeholder="Enter a description."
-                    title="Enter a description about your club."
+                  <textarea id="description" class=" validate-this-textarea post-description-textarea" placeholder="Enter a description."
+                    title="Enter a description about your post."
                     name="description-textarea" disabled></textarea>
-                  <!--Get description from DB upon club info viewing-->
+                  <!--Get description from DB upon post info viewing-->
                 </div>
                 <br>
                 
     
                 <div class="d-flex justify-content-center">
                   <button class="action-button go-back-button" onclick="goBackToResults()">&leftarrow; GO BACK</button>
-                  <button class="action-button join-button" onclick="joinClub(this.id)">COMMENT</button>
-                  <button class="action-button delete-club-button" onclick="deleteClub(this.id)" hidden>DELETE POST</button>
+                  <button class="action-button join-button" onclick="joinpost(this.id)">COMMENT</button>
+                  <button class="action-button delete-post-button" onclick="deletepost(this.id)" hidden>DELETE POST</button>
                 </div>
     
             </div>
-            <div class="club-info-wrapper issue-info-template" hidden>
+            <div class="post-info-wrapper issue-info-template" hidden>
 
                 <br>
                 <div class="inner-table show-saved-title-div"> <!--Not hidden by default-->
-                  <div class="first-table-title club-info-heading club-title">
-                    <!--Get Club Title from DB-->
+                  <div class="first-table-title post-info-heading post-title">
+                    <!--Get post Title from DB-->
                   </div>
                 </div>
                 <br>
     
                 <div class="inner-table create-title-div" hidden >
-                  <div class="club-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a cool club title! Character limit is 20.">Club Title</div>
+                  <div class="post-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a cool post title! Character limit is 20.">post Title</div>
                   <label for="description" hidden></label>
-                  <textarea class="validate-this-textarea club-title-textarea" maxlength="20" placeholder="Enter a cool club title! Character limit is 20."
-                    title="Enter a description about your club. Character limit is 20."
-                    name="club-title-textarea" disabled></textarea>
+                  <textarea class="validate-this-textarea post-title-textarea" maxlength="20" placeholder="Enter a cool post title! Character limit is 20."
+                    title="Enter a description about your post. Character limit is 20."
+                    name="post-title-textarea" disabled></textarea>
                   <!--Get title from user-->
                 </div>
     
                 <div class="inner-table" style="overflow-x: auto;">
-                  <div class="club-info-heading" style="padding: 10px; font-weight: 700;"> Creator</div>
-                  <table class="table table-bordered club-info-table">
+                  <div class="post-info-heading" style="padding: 10px; font-weight: 700;"> Creator</div>
+                  <table class="table table-bordered post-info-table">
                     <tr>
-                      <th class="club-info-subheading">Name</th>
-                      <th class="club-info-subheading">Date of Issue</th>
-                      <th class="club-info-subheading">Status</th>
+                      <th class="post-info-subheading">Name</th>
+                      <th class="post-info-subheading">Date of Issue</th>
+                      <th class="post-info-subheading">Status</th>
                     </tr>
                     <tr>
-                      <td class="club-info creator-name">
-                        <!--Get Full Name from DB upon new club creation--> 
+                      <td class="post-info creator-name">
+                        <!--Get Full Name from DB upon new post creation--> 
                       </td>
-                      <td class="club-info creator-doi">
-                        <!--Get Email from DB upon new club creation-->
+                      <td class="post-info creator-doi">
+                        <!--Get Email from DB upon new post creation-->
                       </td>
-                      <td class="club-info creator-status">
-                        <!--Get Phone from DB upon new club creation-->
+                      <td class="post-info creator-status">
+                        <!--Get Phone from DB upon new post creation-->
                       </td>
                     </tr>
                   </table>
                 </div>
                 <div class="inner-table">
-                  <div class="club-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a description about your club. Character limit is 200.">Description</div>
+                  <div class="post-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a description about your post. Character limit is 200.">Description</div>
                   <label for="description" hidden></label>
-                  <textarea id="description" class=" validate-this-textarea club-description-textarea" placeholder="Enter a description."
-                    title="Enter a description about your club."
+                  <textarea id="description" class=" validate-this-textarea post-description-textarea" placeholder="Enter a description."
+                    title="Enter a description about your post."
                     name="description-textarea" disabled></textarea>
-                  <!--Get description from DB upon club info viewing-->
+                  <!--Get description from DB upon post info viewing-->
                 </div>
                 <br>
                 
     
                 <div class="d-flex justify-content-center">
                   <button class="action-button go-back-button" onclick="goBackToResults()">&leftarrow; GO BACK</button>
-                  <button class="action-button join-button" onclick="joinClub(this.id)">Comment</button>
-                  <button class="action-button delete-club-button" onclick="deleteClub(this.id)" hidden>DELETE POST</button>
+                  <button class="action-button join-button" onclick="joinpost(this.id)">Comment</button>
+                  <button class="action-button delete-post-button" onclick="deletepost(this.id)" hidden>DELETE POST</button>
                 </div>
     
             </div>
-            <div class="club-info-wrapper discussion-info-template" hidden>
+            <div class="post-info-wrapper discussion-info-template" hidden>
 
                 <br>
                 <div class="inner-table show-saved-title-div"> <!--Not hidden by default-->
-                  <div class="first-table-title club-info-heading club-title">
-                    <!--Get Club Title from DB-->
+                  <div class="first-table-title post-info-heading post-title">
+                    <!--Get post Title from DB-->
                   </div>
                 </div>
                 <br>
     
                 <div class="inner-table create-title-div" hidden >
-                  <div class="club-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a cool club title! Character limit is 20.">Club Title</div>
+                  <div class="post-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a cool post title! Character limit is 20.">post Title</div>
                   <label for="description" hidden></label>
-                  <textarea class="validate-this-textarea club-title-textarea" maxlength="20" placeholder="Enter a cool club title! Character limit is 20."
-                    title="Enter a description about your club. Character limit is 20."
-                    name="club-title-textarea" disabled></textarea>
+                  <textarea class="validate-this-textarea post-title-textarea" maxlength="20" placeholder="Enter a cool post title! Character limit is 20."
+                    title="Enter a description about your post. Character limit is 20."
+                    name="post-title-textarea" disabled></textarea>
                   <!--Get title from user-->
                 </div>
     
                 <div class="inner-table" style="overflow-x: auto;">
-                  <div class="club-info-heading" style="padding: 10px; font-weight: 700;"> Creator</div>
-                  <table class="table table-bordered club-info-table">
+                  <div class="post-info-heading" style="padding: 10px; font-weight: 700;"> Creator</div>
+                  <table class="table table-bordered post-info-table">
                     <tr>
-                      <th class="club-info-subheading">Name</th>
-                      <th class="club-info-subheading"></th>
-                      <th class="club-info-subheading">Phone</th>
-                    </tr>
-                    <tr>
-                      <td class="club-info creator-name">
-                        <!--Get Full Name from DB upon new club creation--> 
-                      </td>
-                      <td class="club-info creator-email">
-                        <!--Get Email from DB upon new club creation-->
-                      </td>
-                      <td class="club-info creator-phone">
-                        <!--Get Phone from DB upon new club creation-->
+                      <td class="post-info creator-name">
+                        <!--Get Full Name from DB upon new post creation--> 
                       </td>
                     </tr>
                   </table>
                 </div>
+                
                 <div class="inner-table">
-                  <div class="club-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a description about your club. Character limit is 200.">Description</div>
+                  <div class="post-info-heading" style="padding: 10px; font-weight: 700;" title="Enter a description about your post. Character limit is 200.">Description</div>
                   <label for="description" hidden></label>
-                  <textarea id="description" class=" validate-this-textarea club-description-textarea" placeholder="Enter a description."
-                    title="Enter a description about your club."
+                  <textarea id="description" class=" validate-this-textarea post-description-textarea" placeholder="Enter a description."
+                    title="Enter a description about your post."
                     name="description-textarea" disabled></textarea>
-                  <!--Get description from DB upon club info viewing-->
+                  <!--Get description from DB upon post info viewing-->
                 </div>
                 <br>
                 
-    
                 <div class="d-flex justify-content-center">
                   <button class="action-button go-back-button" onclick="goBackToResults()">&leftarrow; GO BACK</button>
-                  <button class="action-button join-button" onclick="joinClub(this.id)">Comment</button>
-                  <button class="action-button delete-club-button" onclick="deleteClub(this.id)" hidden>DELETE POST</button>
+                  <button class="action-button join-button" onclick="showCreateEventCommentTile()">Comment</button>
+                  <button class="action-button delete-post-button" onclick="deletepost(this.id)" hidden>DELETE POST</button>
+                </div>
+                <div
+                style="margin-top:10px; margin-bottom:10px; display: none;" id = "createEventCommentTemplate" >
+                    <table class="table table-bordered forum-card-table">
+                    <tbody>
+                        <tr>
+                        <td colspan="2">
+                            <input class="discussion-comment-info" type="text" />
+                        </td>
+                        </tr>
+                        <tr>
+                            <button onclick="showCreateEventCommentTile()">Comment</button>
+                        </tr>
+                    </tbody>
+                    </table>
+
+                </div>
+                <div id="new-comment-area"></div>
+                <div class="col-lg-8 light-purple-bg forum-card-comment discussion_comment_template saved-forum-card"
+                style="margin-top:10px; margin-bottom:10px;" hidden>
+                    <table class="table table-bordered forum-card-table">
+                    <tbody>
+
+                        <tr>
+                        <td colspan="1">
+                            <input class="discussion-comment-info" type="text" disabled />
+                        </td>
+                        <td colspan="2">
+                            <input class="discussion-comment-info" type="text" disabled />
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+
                 </div>
     
             </div>
