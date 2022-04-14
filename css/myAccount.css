@@ -114,7 +114,7 @@ input:disabled, select:disabled{
 }
 
 #edit-button,#save-button,#add-card-button,#remove-card-button,
-#save-card-button,#autopay-button-off{
+#save-card-button,#autopay-button-off,#reset-button{
   background-color: var(--cc-dark-storm);
   color:var(--cc-sand);
   border:solid 1px var(--cc-sand);
@@ -124,7 +124,8 @@ input:disabled, select:disabled{
 
 #edit-button:hover,#save-button:hover,
 #add-card-button:hover,#remove-card-button:hover,
-#save-card-button:hover,#autopay-button-off:hover,#generatecard:hover{
+#save-card-button:hover,#autopay-button-off:hover,
+#generatecard:hover,#reset-button:hover{
   background-color: var(--cc-salmon);
   color:var(--cc-dark-storm);
   border:solid 1px var(--cc-light-purple);

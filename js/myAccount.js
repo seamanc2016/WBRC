@@ -382,3 +382,24 @@ function savePersonalInfo() {
 
 };
 
+
+function resetAccount(){
+  auth.onAuthStateChanged(function (user) {
+    if (user) {
+      var uid = user.uid;
+      //Reset user class
+      database.ref("users/" + uid).update({ accountSetupDone: false});
+
+      //Reset user bill
+      database.ref("bills/" + uid).update({ amountOwed: 200});
+
+      //Maybe remove clubs, and visitors as well?
+
+      logout();
+
+    } else {
+      // No user is signed in.
+      window.location.href = "../index.html";
+    }
+  });
+}

@@ -24,10 +24,13 @@ auth.onAuthStateChanged(function(user) {
         .then((snapshot) => {
             if (snapshot.exists()) {
                 //if the user has a database entry
-                document.getElementById("baseMasthead").style.display = "none";
-                document.getElementById("loginMasthead").style.display = "none";
-                document.getElementById("placeholderMasthead").style.display = "block";
-                document.getElementById("placeholderRegister").style.display = "none";
+                setTimeout(()=>{
+                    document.getElementById("baseMasthead").style.display = "none";
+                    document.getElementById("loginMasthead").style.display = "none";
+                    document.getElementById("placeholderMasthead").style.display = "block";
+                    document.getElementById("placeholderRegister").style.display = "none";
+                }, 50);
+
 
             } else {
                 //if the user does not have a database
@@ -41,9 +44,9 @@ auth.onAuthStateChanged(function(user) {
                 console.error(error);
           });
         //Hides the login and welcome text divs and only shows the dashboard button div
-        document.getElementById("baseMasthead").style.display = "none";
-        document.getElementById("loginMasthead").style.display = "none";
-        document.getElementById("placeholderMasthead").style.display = "block";
+        // document.getElementById("baseMasthead").style.display = "none";
+        // document.getElementById("loginMasthead").style.display = "none";
+        // document.getElementById("placeholderMasthead").style.display = "block";
   
         //sets up firebase auth
         var user = firebase.auth().currentUser;
@@ -68,7 +71,7 @@ function login () {
               
     // Validate input fields
     if (validate_email(email) == false || validate_password(password) == false) {
-        alert('Email or Password is Outta Line!!');
+        alert('Email or Password is incorrect. Please try again.');
         return;
         // Don't continue running the code
     }
@@ -81,7 +84,7 @@ function login () {
               
               
         // Done
-        alert('User Logged In!!')
+        alert('Login successful!')
         //function to check if the user signing in has a database (e.i has completed registration process)
         dbRef.child("users").child(user.uid).get()
         .then((snapshot) => {
