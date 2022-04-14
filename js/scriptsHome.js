@@ -75,9 +75,9 @@ function setupCompletionCheck() {
             if (snapshot.exists()) {
                 
                 if(snapshot.val().accountSetupDone == false)
-                    window.location.href = "../html/accountSetup.html";
+                    window.location.href = "html/accountSetup.html";
                 else
-                    window.location.href = "../html/dashboardPage.html";
+                    window.location.href = "html/dashboardPage.html";
 
             } else {
                 console.log("No data available");
