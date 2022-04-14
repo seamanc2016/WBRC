@@ -86,6 +86,7 @@ function createCategory() {
         if (user) {
             var uid = user.uid;
             var position = 1;
+            userFullName();
             var searhCat = sessionStorage.getItem("searchCat");
             switch (searhCat) {
                 case "Event" :
@@ -97,8 +98,9 @@ function createCategory() {
                             var doe = childSnapshot.val().doe;
                             var toe = childSnapshot.val().toe;
                             var title = childSnapshot.val().title;
+                            var key = childSnapshot.key
                             
-                            createEventCard(creator, dateCreated, description, doe, toe, title, position);
+                            createEventCard(creator, dateCreated, description, doe, toe, title, position, key);
                             position++;
                         });
                     });
@@ -112,8 +114,9 @@ function createCategory() {
                             var doe = childSnapshot.val().doe;
                             var toe = childSnapshot.val().toe;
                             var title = childSnapshot.val().title;
+                            var key = childSnapshot.key
                             
-                            createDiscussionCard(creator, dateCreated, description, doe, toe, title, position);
+                            createDiscussionCard(creator, dateCreated, description, doe, toe, title, position, key);
                             position++;
                         });
                     });
@@ -127,8 +130,9 @@ function createCategory() {
                             var doe = childSnapshot.val().doe;
                             var toe = childSnapshot.val().toe;
                             var title = childSnapshot.val().title;
+                            var key = childSnapshot.key
                             
-                            createIssueCard(status, dateCreated, description, doe, toe, title, position);
+                            createIssueCard(status, dateCreated, description, doe, toe, title, position, key);
                             position++;
                         });
                     });
@@ -142,21 +146,9 @@ function createCategory() {
                             var doe = childSnapshot.val().doe;
                             var toe = childSnapshot.val().toe;
                             var title = childSnapshot.val().title;
+                            var key = childSnapshot.key
                             
-                            createEventCard(creator, dateCreated, description, doe, toe, title, position);
-                            position++;
-                        });
-                    });
-                    database.ref("D&E/discussions").once('value', (snapshot) => {
-                        snapshot.forEach((childSnapshot) => {
-                            var creator = childSnapshot.val().creator;
-                            var dateCreated = childSnapshot.val().date_created;
-                            var description = childSnapshot.val().description;
-                            var doe = childSnapshot.val().doe;
-                            var toe = childSnapshot.val().toe;
-                            var title = childSnapshot.val().title;
-                            
-                            createDiscussionCard(creator, dateCreated, description, doe, toe, title, position);
+                            createEventCard(creator, dateCreated, description, doe, toe, title, position, key);
                             position++;
                         });
                     });
@@ -168,8 +160,23 @@ function createCategory() {
                             var doe = childSnapshot.val().doe;
                             var toe = childSnapshot.val().toe;
                             var title = childSnapshot.val().title;
+                            var key = childSnapshot.key;
                             
-                            createIssueCard(status, dateCreated, description, doe, toe, title, position);
+                            createIssueCard(status, dateCreated, description, doe, toe, title, position, key);
+                            position++;
+                        });
+                    });
+                    database.ref("D&E/discussions").once('value', (snapshot) => {
+                        snapshot.forEach((childSnapshot) => {
+                            var creator = childSnapshot.val().creator;
+                            var dateCreated = childSnapshot.val().date_created;
+                            var description = childSnapshot.val().description;
+                            var doe = childSnapshot.val().doe;
+                            var toe = childSnapshot.val().toe;
+                            var title = childSnapshot.val().title;
+                            var key = childSnapshot.key
+                            
+                            createDiscussionCard(creator, dateCreated, description, doe, toe, title, position, key);
                             position++;
                         });
                     });
@@ -191,7 +198,6 @@ function createCategory() {
  function createPost() {
     var e = document.getElementById("create_category");
     var strUser = e.value;
-    userFullName();
     switch (strUser) {
         case "event" :
             createEventPost();
@@ -247,7 +253,7 @@ function createEventPost() {
 }
 
 //loading post card
-function createEventCard(creator, dateCreated, description, doe, toe, title, position) {
+function createEventCard(creator, dateCreated, description, doe, toe, title, position, key) {
     //Get copy of card template
     var cardTemplate = document.querySelector(".event_card_template");
     var cardHeader = cardTemplate.querySelector(".visitor-card-heading");
@@ -271,6 +277,8 @@ function createEventCard(creator, dateCreated, description, doe, toe, title, pos
     newCardInputFields[3].value = toe;
     newCardInputFields[4].value = description;
     newCard.classList.remove("last-added");
+    newCard.querySelector(".search-result-button").id = key;
+    
 
 
     //Clear the card template of the information so that new cards won't share the info and rehide it
@@ -317,7 +325,7 @@ function createDiscussionPost() {
 
 
 //loading post card
-function createDiscussionCard(creator, dateCreated, description, doe, toe, title, position) {
+function createDiscussionCard(creator, dateCreated, description, doe, toe, title, position, key) {
     //Get copy of card template
     var cardTemplate = document.querySelector(".discussion_card_template");
     var cardHeader = cardTemplate.querySelector(".visitor-card-heading");
@@ -339,6 +347,7 @@ function createDiscussionCard(creator, dateCreated, description, doe, toe, title
     newCardInputFields[1].value = creator;
     newCardInputFields[2].value = description;
     newCard.classList.remove("last-added");
+    newCard.querySelector(".search-result-button").id = key;
 
 
     //Clear the card template of the information so that new cards won't share the info and rehide it
@@ -378,7 +387,7 @@ function createIssuePost() {
         date_created : Date.now()
     };
     // Push to user_data to update the Firebase Realtimne Database
-    database_ref.child('D&E/').child("Issues/" + postName).update(post_data);
+    database_ref.child('D&E/').child("issues/" + postName).update(post_data);
     document.getElementById('create_title').value=null;
     document.getElementById('create_category').value=null;
     document.getElementById('create_doe').value=null;
@@ -389,7 +398,7 @@ function createIssuePost() {
 }
 
 //loading post card
-function createIssueCard(status, dateCreated, description, doe, toe, title, position) {
+function createIssueCard(status, dateCreated, description, doe, toe, title, position, key) {
     //Get copy of card template
     var cardTemplate = document.querySelector(".issue_card_template");
     var cardHeader = cardTemplate.querySelector(".visitor-card-heading");
@@ -413,6 +422,7 @@ function createIssueCard(status, dateCreated, description, doe, toe, title, posi
     newCardInputFields[3].value = toe;
     newCardInputFields[4].value = description;
     newCard.classList.remove("last-added");
+    newCard.querySelector(".search-result-button").id = key;
 
 
     //Clear the card template of the information so that new cards won't share the info and rehide it
@@ -423,10 +433,6 @@ function createIssueCard(status, dateCreated, description, doe, toe, title, posi
     cardTemplate.setAttribute("hidden", true);
 
 }
-
-
-
-
 
 function searchPosts() {
     var e = document.getElementById("category_search");
@@ -445,11 +451,11 @@ function searchPosts() {
             window.location.reload();
             break;
         default :
+            sessionStorage.setItem("searchCat", "default");
+            window.location.reload();
             break;
     }
 }
-
-
 
 function userFullName() {
     var user = auth.currentUser;
@@ -463,7 +469,6 @@ function userFullName() {
             strLast = snapshot.val().lastName;
             strFull = strFirst + " " + strLast;
             sessionStorage.setItem("strFull", strFull);
-            console.log(strFull);
 
         }
         else {
@@ -472,4 +477,142 @@ function userFullName() {
     }).catch((error) => {
         console.error(error);
     });
+}
+
+function loadEventPost(callingElement) {
+    //Query the database to find the appropriate information of club and place that info into the template
+    database.ref("D&E/events").once('value', (snapshot) => {
+        var copyOfTemplate = document.querySelector(".event-info-template");
+        snapshot.forEach((childSnapshot) => {
+            //Find the child that matches the button inner HTML
+            if (childSnapshot.key == callingElement) {
+                var child = childSnapshot.val();
+                //Put its info into the club info template in the appropriate areas
+                copyOfTemplate.querySelector(".club-title").innerHTML = child.title;
+                copyOfTemplate.querySelector(".creator-name").innerHTML = child.creator;
+                copyOfTemplate.querySelector(".creator-doe").innerHTML = child.doe;
+                copyOfTemplate.querySelector(".creator-toe").innerHTML = child.toe;
+
+                copyOfTemplate.querySelector("#description").value = child.description; //Adjust size of the description field basedon what's in it
+
+                return;
+            }
+            else {
+                console.log("unkwon id");
+            }
+        });
+
+        //Set the action button IDs equal to the calling element's ID
+        copyOfTemplate.querySelector(".join-button").id = callingElement.id;
+        copyOfTemplate.querySelector(".delete-club-button").id = callingElement.id;
+
+        //Hide default section and show club info template
+        setTimeout(() => {
+            document.querySelector(".default").setAttribute("hidden", true);
+            document.querySelector(".event-info-template").removeAttribute("hidden");
+        }, 100)
+
+    });
+
+
+
+}
+
+function loadDiscussionPost(callingElement) {
+    //Query the database to find the appropriate information of club and place that info into the template
+    database.ref("D&E/discussions").once('value', (snapshot) => {
+        var copyOfTemplate = document.querySelector(".discussion-info-template");
+        snapshot.forEach((childSnapshot) => {
+            //Find the child that matches the button inner HTML
+            if (childSnapshot.key == callingElement) {
+                var child = childSnapshot.val();
+                //Put its info into the club info template in the appropriate areas
+                copyOfTemplate.querySelector(".club-title").innerHTML = child.title;
+                copyOfTemplate.querySelector(".creator-name").innerHTML = child.creator;
+                copyOfTemplate.querySelector(".creator-email").innerHTML = child.doe;
+                copyOfTemplate.querySelector(".creator-phone").innerHTML = child.toe;
+
+                copyOfTemplate.querySelector("#description").value = child.description; //Adjust size of the description field basedon what's in it
+
+                return;
+            }
+            else {
+                console.log("unkwon id");
+                console.log(childSnapshot.key);
+                console.log(callingElement);
+            }
+        });
+
+        //Set the action button IDs equal to the calling element's ID
+        copyOfTemplate.querySelector(".join-button").id = callingElement.id;
+        copyOfTemplate.querySelector(".delete-club-button").id = callingElement.id;
+
+        //Hide default section and show club info template
+        setTimeout(() => {
+            document.querySelector(".default").setAttribute("hidden", true);
+            document.querySelector(".discussion-info-template").removeAttribute("hidden");
+        }, 100)
+
+    });
+
+
+
+}
+
+function loadIssuePost(callingElement) {
+    //Query the database to find the appropriate information of club and place that info into the template
+    database.ref("D&E/issues").once('value', (snapshot) => {
+        var copyOfTemplate = document.querySelector(".issue-info-template");
+        snapshot.forEach((childSnapshot) => {
+            //Find the child that matches the button inner HTML
+            if (childSnapshot.key == callingElement) {
+                var child = childSnapshot.val();
+                //Put its info into the club info template in the appropriate areas
+                copyOfTemplate.querySelector(".club-title").innerHTML = child.title;
+                copyOfTemplate.querySelector(".creator-name").innerHTML = child.creator;
+                copyOfTemplate.querySelector(".creator-doi").innerHTML = child.doe;
+                copyOfTemplate.querySelector(".creator-status").innerHTML = child.status;
+
+                copyOfTemplate.querySelector("#description").value = child.description; //Adjust size of the description field basedon what's in it
+
+                return;
+            }
+            else {
+                console.log("unkwon id");
+            }
+        });
+
+        //Set the action button IDs equal to the calling element's ID
+        copyOfTemplate.querySelector(".join-button").id = callingElement.id;
+        copyOfTemplate.querySelector(".delete-club-button").id = callingElement.id;
+
+        //Hide default section and show club info template
+        setTimeout(() => {
+            document.querySelector(".default").setAttribute("hidden", true);
+            document.querySelector(".issue-info-template").removeAttribute("hidden");
+        }, 100)
+
+    });
+
+
+
+}
+
+function goBackToResults() {
+
+    //Disable textareas if going back from a club info screen that's in the middle of being edited
+    var allTextareasRequiringValidation = document.querySelectorAll(".validate-this-textarea");
+    for (let i = 0; i < allTextareasRequiringValidation.length; i++) {
+        allTextareasRequiringValidation[i].setAttribute("disabled", true);
+    }
+
+    //Hide/unhide club template elements as necessary
+    document.querySelector(".show-saved-title-div").removeAttribute("hidden");
+    document.querySelector(".create-title-div").setAttribute("hidden", true);
+
+    //Hide club info template and show default section
+    document.querySelector(".event-info-template").setAttribute("hidden", true);
+    document.querySelector(".discussion-info-template").setAttribute("hidden", true);
+    document.querySelector(".issue-info-template").setAttribute("hidden", true);
+    document.querySelector(".default").removeAttribute("hidden");
 }
