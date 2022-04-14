@@ -81,6 +81,7 @@ function login () {
     .then(function() {
         // Declare user variable
         var user = auth.currentUser;
+        sessionStorage.setItem("searchCat", "default");
               
               
         // Done
