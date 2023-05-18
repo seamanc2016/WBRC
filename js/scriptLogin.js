@@ -64,6 +64,7 @@ auth.onAuthStateChanged(function(user) {
 });      
 
 // Set up our login function
+//Credits to John Salsinger (GoldLeader2001) for modifying this
 function login () {
     // Get all our input fields
     email = document.getElementById('email').value;
@@ -85,7 +86,7 @@ function login () {
               
               
         // Done
-        alert('Login successful!')
+        //alert('Login successful!')
         //function to check if the user signing in has a database (e.i has completed registration process)
         dbRef.child("users").child(user.uid).get()
         .then((snapshot) => {
@@ -114,7 +115,74 @@ function login () {
                 //if the user does not have a database
                 console.log("No data available");
                 //routes to the register page
-                window.location.href = "html/registerPage.html";
+                window.location.href = "html/accountSetup.html";
+            }
+          }).catch((error) => {
+                console.error(error);
+          });
+              
+    })
+    .catch(function(error) {
+        // Firebase will use this to alert of its errors
+        var error_code = error.code;
+        var error_message = error.message;
+        
+        alert(error_message);
+    })
+}
+
+//Credits to John Salsinger (GoldLeader2001) for setting this up
+function guestLogin () {
+    // Get all our input fields
+    email = "guest@colchal.com";
+    password = "password";
+              
+    // Validate input fields
+    if (validate_email(email) == false || validate_password(password) == false) {
+        alert('Email or Password is incorrect. Please try again.');
+        return;
+        // Don't continue running the code
+    }
+    
+    //Standard firebase auth sign in with email and password function
+    auth.signInWithEmailAndPassword(email, password)
+    .then(function() {
+        // Declare user variable
+        var user = auth.currentUser;
+        sessionStorage.setItem("searchCat", "default");
+              
+              
+        // Done
+        //alert('Login successful!')
+        //function to check if the user signing in has a database (e.i has completed registration process)
+        dbRef.child("users").child(user.uid).get()
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                //if the user has a database entry
+
+                // Add this user to Firebase Database
+                var database_ref = database.ref();
+              
+                // create user last login timestamp
+                var user_data = {
+                last_login : Date.now()
+                }
+              
+                // Push to Firebase Database 
+                database_ref.child('users/' + user.uid).update(user_data);
+
+                //If acount setup is not done, take to setup page. Else, go to dashboard.
+                if (snapshot.val().accountSetupDone == true)
+                    window.location.href = "html/dashboardPage.html";
+                else
+                    window.location.href = "html/accountSetup.html";
+
+
+            } else {
+                //if the user does not have a database
+                console.log("No data available");
+                //routes to the register page
+                window.location.href = "html/accountSetup.html";
             }
           }).catch((error) => {
                 console.error(error);
